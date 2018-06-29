@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+	<title>CFERondanet Alta de Empresas</title>
+	<meta name="author" content="The Author"></meta>
+	<link type="text/css" rel="stylesheet" href="resources/css/nuevo.css" />
+		<script>
+   	 	window.onload = function() {
+   	 	}
+		</script>
+</h:head>
+<h:body style="padding: 40px;">
+	<b:navBar brand="Alta Empresas" brandHref="" fixed="top" inverse="true" style="background-color:navy;" >
+	</b:navBar>
+	<h:form id="progressForm">
+		<b:container>
+			<b:jumbotron>
+				<h3>Ambiente</h3>
+				<h4>Seleccionar el ambiente donde instalar la aplicacion, y la version para la estructura de la base</h4>
+				<p>
+					<b:panelGrid size="xs" columns="2">
+						<b:radiobutton 
+							value="#{empresaBean.produccion}"
+							itemLabel="Desarrollo" itemValue="false" required="false" />
+						<b:radiobutton 
+							value="#{empresaBean.produccion}"
+							itemLabel="Produccion" itemValue="true" />
+					</b:panelGrid>
+				</p>
+				<p>
+					<b:row>
+						<b:column medium-screen="3">
+							<h:outputText value="Version del server:" />
+						</b:column>
+						<b:column medium-screen="6">
+						  <b:formGroup>
+						    <b:selectOneMenu value="#{empresaBean.version}" required="true">
+						      <f:selectItem itemLabel="(Elegir la version instalada)" itemValue="" />
+						      <f:selectItem itemLabel="4.1.0" itemValue="410" />
+						      <f:selectItem itemLabel="5.2.0" itemValue="520" />
+						      <f:selectItem itemLabel="5.3.0" itemValue="530" />
+						      <f:selectItem itemLabel="6.0.0" itemValue="600" />
+						      <f:selectItem itemLabel="6.1.0" itemValue="610" />
+						      <f:selectItem itemLabel="6.2.1" itemValue="321" />
+						      <f:selectItem itemLabel="6.3.0" itemValue="630" />
+						    </b:selectOneMenu>
+						  </b:formGroup>
+						</b:column>
+					</b:row>
+				</p>
+			</b:jumbotron>
+			<b:jumbotron>
+				<h3>Estructura de Carpetas</h3>
+				<h4>Estructura de directorios a ser creados para la empresa (se pueden
+					modificar)</h4>
+				<p>
+					<b:row>
+						<b:column medium-screen="3">
+							<h:outputText value="Home Folder:" />
+						</b:column>
+						<b:column medium-screen="6">
+							<b:inputText id="itHFolder" placeholder="Directorio Home" ajax="true"
+								value="#{empresaBean.homeFolder}"  />
+						</b:column>
+					</b:row>
+				</p>
+				<p>
+					<b:row>
+						<b:column span="2" offset="2">
+						</b:column>
+						<b:column span="4">
+				          <b:commandButton value="Dar de alta otra empresa"
+								id="bAceptar"
+								onclick="ajax:empresaBean.login()" update="@form" look="primary"
+								oncomplete="#{empresaBean.homeFolder}"
+								disabled="#{empresaBean.getNombre().length() == 0}"
+								style="width:100%" />
+						</b:column>
+					</b:row>
+				</p>
+			</b:jumbotron>
+		</b:container>
+	</h:form>
+</h:body>
+</html>
+

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<print-config>
+	<formato-impresion default-enviados="true" default-recibidos="true" id="std">
+		<!--e-Ticket y notas de corrección-->
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintTicket" plantilla="standard/v2.5/TCK_A4_STD.jasper" tipo-comprobante="101">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintTicket" plantilla="standard/v2.5/TCK_A4_STD.jasper" tipo-comprobante="102">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintTicket" plantilla="standard/v2.5/TCK_A4_STD.jasper" tipo-comprobante="103">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<!--e-Factura y notas de corrección-->
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintBill" plantilla="standard/v2.5/FAC_A4_STD.jasper" tipo-comprobante="111">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintBill" plantilla="standard/v2.5/FAC_A4_STD.jasper" tipo-comprobante="112">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintBill" plantilla="standard/v2.5/FAC_A4_STD.jasper" tipo-comprobante="113">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<!--e-Factura de Exportación y notas de corrección-->
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintBill" plantilla="standard/v2.5/FAC_A4_STD.jasper" tipo-comprobante="121">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintBill" plantilla="standard/v2.5/FAC_A4_STD.jasper" tipo-comprobante="122">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintBill" plantilla="standard/v2.5/FAC_A4_STD.jasper" tipo-comprobante="123">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<!--e-Remito de Exportación-->
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintDeliveryNote" plantilla="standard/v2.5/REM_EXPORTACION_A4_STD.jasper" tipo-comprobante="124">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<!--e-Ticket Venta por Cuenta Ajena y sus notas de corrección-->
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintTicket" plantilla="standard/v2.5/TCK_A4_STD.jasper" tipo-comprobante="131">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintTicket" plantilla="standard/v2.5/TCK_A4_STD.jasper" tipo-comprobante="132">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintTicket" plantilla="standard/v2.5/TCK_A4_STD.jasper" tipo-comprobante="133">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<!--e-Factura Venta por Cuenta Ajena y sus notas de corrección-->
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintBill" plantilla="standard/v2.5/FAC_A4_STD.jasper" tipo-comprobante="141">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintBill" plantilla="standard/v2.5/FAC_A4_STD.jasper" tipo-comprobante="142">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintBill" plantilla="standard/v2.5/FAC_A4_STD.jasper" tipo-comprobante="143">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<!--e-Boleta-->
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintBill" plantilla="standard/v2.5/BOLETA_ENT_A4_STD.jasper" tipo-comprobante="151">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />		
+		</formato>
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintBill" plantilla="standard/v2.5/BOLETA_ENT_A4_STD.jasper" tipo-comprobante="152">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />			
+		</formato>
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintBill" plantilla="standard/v2.5/BOLETA_ENT_A4_STD.jasper" tipo-comprobante="153">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />		
+		</formato>
+		<!--e-Remito-->
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintDeliveryNote" plantilla="standard/v2.5/REM_A4_STD.jasper" tipo-comprobante="181">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<!--e-Resguardo-->
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintGuard" plantilla="standard/v2.5/RES_A4_STD.jasper" tipo-comprobante="182">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<!--201 e-Ticket Contingencia y sus notas de corrección-->
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintTicket" plantilla="standard/v2.5/TCK_A4_STD.jasper" tipo-comprobante="201">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintTicket" plantilla="standard/v2.5/TCK_A4_STD.jasper" tipo-comprobante="202">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintTicket" plantilla="standard/v2.5/TCK_A4_STD.jasper" tipo-comprobante="203">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<!--211 e-Factura Contingencia y sus notas de corrección-->
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintBill" plantilla="standard/v2.5/FAC_A4_STD.jasper" tipo-comprobante="211">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintBill" plantilla="standard/v2.5/FAC_A4_STD.jasper" tipo-comprobante="212">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintBill" plantilla="standard/v2.5/FAC_A4_STD.jasper" tipo-comprobante="213">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<!--e-Factura Exportación Contingencia y sus notas de corrección-->
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintBill" plantilla="standard/v2.5/FAC_A4_STD.jasper" tipo-comprobante="221">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintBill" plantilla="standard/v2.5/FAC_A4_STD.jasper" tipo-comprobante="222">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintBill" plantilla="standard/v2.5/FAC_A4_STD.jasper" tipo-comprobante="223">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<!--e-Remito de Exportación Contingencia-->
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintDeliveryNote" plantilla="standard/v2.5/REM_EXPORTACION_A4_STD.jasper" tipo-comprobante="224">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<!--e-Ticket Venta por Cuenta Ajena Contingencia y sus notas de corrección-->
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintTicket" plantilla="standard/v2.5/TCK_A4_STD.jasper" tipo-comprobante="231">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintTicket" plantilla="standard/v2.5/TCK_A4_STD.jasper" tipo-comprobante="232">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintTicket" plantilla="standard/v2.5/TCK_A4_STD.jasper" tipo-comprobante="233">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<!--e-Factura Venta por Cuenta Ajena Contingencia y sus notas de corrección-->
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintBill" plantilla="standard/v2.5/FAC_A4_STD.jasper" tipo-comprobante="241">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintBill" plantilla="standard/v2.5/FAC_A4_STD.jasper" tipo-comprobante="242">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintBill" plantilla="standard/v2.5/FAC_A4_STD.jasper" tipo-comprobante="243">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<!--e-Boleta-->
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintBill" plantilla="standard/v2.5/BOLETA_ENT_A4_STD.jasper" tipo-comprobante="251">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />		
+		</formato>
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintBill" plantilla="standard/v2.5/BOLETA_ENT_A4_STD.jasper" tipo-comprobante="252">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />			
+		</formato>
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintBill" plantilla="standard/v2.5/BOLETA_ENT_A4_STD.jasper" tipo-comprobante="253">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />		
+		</formato>
+		<!--e-Remito Contingencia-->
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintDeliveryNote" plantilla="standard/v2.5/REM_A4_STD.jasper" tipo-comprobante="281">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+		<!--e-Resguardo Contingencia-->
+		<formato clase="org.gs1uy.rondanetweb.print.services.PrintGuard" plantilla="standard/v2.5/RES_A4_STD.jasper" tipo-comprobante="282">
+			<logo />
+			<url-publicacion />
+			<nro-resolucion />
+		</formato>
+	</formato-impresion>
+</print-config>
