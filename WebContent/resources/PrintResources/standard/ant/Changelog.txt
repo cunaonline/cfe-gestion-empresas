@@ -1,0 +1,4 @@
+Inic |CR/Inc	|fecha		|versión  	|version	|Formato		|Resumen
+							 Desktop	 Web
+-------------------------------------------------------------------------------
+AC				18/03/2013	-			-			Ticket/Factura	Se extendio el largo del campo nombre emisor.

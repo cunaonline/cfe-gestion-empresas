@@ -1,0 +1,10 @@
+﻿
+Iniciales |	Linea 3.X.X	|CR/Incidente		|fecha		|Resumen
+-------------------------------------------------------------------------------
+
+v1.1 ------------------------------------------
+FZ			 3.0.3							07/11/2016	 Se agrega una nueva columna a la derecha del Total A Pagar en la cual se imprime la Condición de Pago del comprobante.
+
+v1.0 ------------------------------------------
+CD			 3.0.3							13/01/2015	 Se baja unos milimetros todo lo que se imprime
+FZ           3.0.3      Referente al 1013   11/12/2014   Se implementa el formato de recibo para Lever. Es un formato que se imprime sobre un pre-impreso.

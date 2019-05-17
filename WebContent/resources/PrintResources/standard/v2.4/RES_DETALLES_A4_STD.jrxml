@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubReportResguardoDetalles" pageWidth="557" pageHeight="840" columnWidth="557" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="345b0a12-80ec-49ac-b247-259e0abb0f0f">
+	<property name="ireport.zoom" value="0.9313819845887352"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="lineNumber" class="java.lang.String"/>
+	<field name="indFact" class="java.lang.String"/>
+	<field name="itemRetenPercepGuard" class="java.util.List"/>
+	<field name="indFactNum" class="java.lang.String"/>
+	<columnHeader>
+		<band height="17" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="779a9e45-63a0-4845-a582-445d371816f0" x="457" y="2" width="99" height="13" backcolor="#CCCCCC"/>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="daaac3ca-fb0b-4b8b-951a-20ec12d9c2ed" x="26" y="2" width="296" height="13" backcolor="#CCCCCC"/>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="8bc16b73-c19b-44ec-8588-e9d3510c151c" x="324" y="2" width="36" height="13" backcolor="#CCCCCC"/>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="03732030-7561-45e8-bddc-6a534a51f3da" x="362" y="2" width="93" height="13" backcolor="#CCCCCC"/>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="51d0d55a-f527-4da7-9f7b-a03d4e73b37f" x="27" y="3" width="295" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RETENCIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3236ae8c-f7c5-41c9-97f5-e14ac782d870" x="362" y="3" width="91" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MTO. SUJETO A RET.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1fd60a06-54ae-49e5-a07b-5dff34e2619f" x="457" y="3" width="97" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VALOR DE LA RET.]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="63213f3f-e00f-4a48-ad84-8557fbfe934d" x="1" y="2" width="23" height="13" backcolor="#CCCCCC"/>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="a3ef0ebf-2118-4cdf-9619-cfaa86f2c898" x="1" y="3" width="23" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[#]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ac6e03ae-ff9d-4fd8-8ac8-00c3e05c1850" x="324" y="3" width="36" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TASA  (%)]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<subreport>
+				<reportElement uuid="d150c562-a00c-4ebd-a451-70a0ffdb62b9" stretchType="RelativeToBandHeight" x="27" y="1" width="529" height="15" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="IND_FACT">
+					<subreportParameterExpression><![CDATA[$F{indFactNum}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{itemRetenPercepGuard})]]></dataSourceExpression>
+				<subreportExpression><![CDATA["SUBREP_RETDETALLES_RES_A4_STD.jasper"]]></subreportExpression>
+			</subreport>
+			<textField>
+				<reportElement uuid="0d1aa549-96a7-4d66-9a72-9d303fb0bbb0" x="1" y="1" width="23" height="15"/>
+				<textElement>
+					<font fontName="arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{lineNumber}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

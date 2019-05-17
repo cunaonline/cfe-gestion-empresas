@@ -1,6 +1,7 @@
 /* para todos los elementos */
 * {
-    /* background-color: lightcyan */
+	/* background-color: lightcyan */
+	
 }
 
 .cssErrorMsg {
@@ -13,7 +14,7 @@
 	font-family: Calibri, Verdana, Arial;
 	font-size: 1.200em;
 }
- 
+
 .rbAmbiente {
 	text-align: left;
 	color: black;

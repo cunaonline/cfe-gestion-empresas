@@ -1,0 +1,6 @@
+﻿
+Iniciales 	|Formato	|Linea 3.X.X	|Linea 2.X.X	|CR/Incidente	|fecha		|Resumen
+-------------------------------------------------------------------------------
+
+v1.0 -----------------------------------------
+AC			Reporte Diario					2.1.2						 09/2013	 Versión inicial

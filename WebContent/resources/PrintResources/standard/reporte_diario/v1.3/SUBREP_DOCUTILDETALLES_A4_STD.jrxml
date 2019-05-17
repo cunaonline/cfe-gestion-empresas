@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubReportDocUtilDetalles" pageWidth="555" pageHeight="840" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="4.279675059165008"/>
+	<property name="ireport.x" value="1668"/>
+	<property name="ireport.y" value="0"/>
+	<field name="serie" class="java.lang.String"/>
+	<field name="nroDesde" class="java.lang.String"/>
+	<field name="nroHasta" class="java.lang.String"/>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="1" width="554" height="15" backcolor="#CCCCCC"/>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="7" y="3" width="319" height="11"/>
+				<textElement>
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Numeración de documentos utilizados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="368" y="3" width="59" height="11"/>
+				<textElement textAlignment="Center">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Serie]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="426" y="3" width="59" height="11"/>
+				<textElement textAlignment="Center">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nro. desde]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="497" y="3" width="50" height="11"/>
+				<textElement textAlignment="Center">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nro. hasta]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement x="364" y="0" width="44" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{serie}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="429" y="0" width="48" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nroDesde}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="496" y="0" width="48" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nroHasta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

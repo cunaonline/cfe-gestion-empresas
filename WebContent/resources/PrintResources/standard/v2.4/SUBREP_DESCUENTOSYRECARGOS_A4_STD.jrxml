@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubReportDescuentosyRecargos" pageWidth="557" pageHeight="840" columnWidth="557" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="a3b56e47-5b68-437f-9c94-5be96a15b170">
+	<property name="ireport.zoom" value="0.8264462809917366"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="line" class="java.lang.String"/>
+	<field name="typeOfMovement" class="java.lang.String"/>
+	<field name="glosa" class="java.lang.String"/>
+	<field name="type" class="java.lang.String"/>
+	<field name="billingIndicator" class="java.lang.String"/>
+	<field name="id" class="java.lang.String"/>
+	<field name="value" class="java.lang.String"/>
+	<columnHeader>
+		<band height="14" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="a95f38b9-89af-4d1b-a278-241f4b4bb5bc" mode="Opaque" x="0" y="0" width="557" height="13" backcolor="#CCCCCC"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESCUENTOS / RECARGOS  GLOBALES]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Prevent">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="2b1ece95-31aa-4b43-9fd8-c06bfedef501" x="174" y="0" width="282" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{glosa}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="469bde98-81ed-43f5-980e-ff812c48cce3" x="457" y="0" width="100" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{value}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="76fd06f5-95d6-4d80-8224-ef7528d00d14" x="104" y="0" width="69" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{typeOfMovement}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

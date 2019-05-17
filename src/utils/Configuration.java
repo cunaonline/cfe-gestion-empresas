@@ -10,6 +10,8 @@ import java.util.Properties;
 public class Configuration {
 
 	private static final String PROPERTY_FILE = "app.properties";
+	private static final String sep = java.io.File.separator;
+	
 	private static HashMap<String, String> propiedades = new LinkedHashMap<String, String>();
 	
 	private static Configuration instance;
@@ -17,61 +19,56 @@ public class Configuration {
 	private String direccionAppFolder;
 	private String direccionHome;
 	private String standaloneFile;
-	private String serverWarNameTest;
-	private String serverWarNameProd;
-	private String empresasFileTest;
-	private String persistenceFileTest;
-	private String empresasFileProd;
-	private String persistenceFileProd;
+	
+	private String empresasFile;
+	private String persistenceFile;
 	private String scriptsFolder;
 	private String xsdFolder;
 	private String keystoreFile;
 	private String printResourcesFolder;
 	private boolean isLinux;
+	private boolean isLinuxDB;
+	private String wildflyFolder;
 	
 	private String dbUrl = "";
 	private String dbUser = "";
 	private String dbPass = "";
 	
+	private String auxEmpresasXml;
+	private String auxPersistenceXml;
+	
+	
 	private Configuration() {
 		Properties props = new Properties();
         InputStream is = Configuration.class.getClassLoader().getResourceAsStream(PROPERTY_FILE);
-        String sep = java.io.File.separator;
+        
 		try {
 			props.load(is);
+			//
 			direccionAppFolder = props.getProperty( "home.app.base" );
+			direccionAppFolder = direccionAppFolder.endsWith( sep ) ? direccionAppFolder : direccionAppFolder + sep;
 			direccionHome = props.getProperty( "home.base" );
+			direccionHome = direccionHome.endsWith( sep ) ? direccionHome : direccionHome + sep;
+			//
 			standaloneFile = props.getProperty( "wildfly.base" ) +sep+ "standalone" +sep+ "configuration" +sep+ "standalone.xml";
+			// aux
+			wildflyFolder = props.getProperty( "wildfly.base" );
+			auxEmpresasXml = props.getProperty( "server.empresas" );
+			auxPersistenceXml = props.getProperty( "server.persistence" );
 			//
-			serverWarNameTest = props.getProperty( "server.war.name.test" );
-			empresasFileTest = props.getProperty( "wildfly.base" ) +sep+ "standalone" +sep+ "deployments" +sep+ serverWarNameTest + props.getProperty( "server.empresas" );
-			persistenceFileTest = props.getProperty( "wildfly.base" ) +sep+ "standalone" +sep+ "deployments" +sep+ serverWarNameTest + props.getProperty( "server.persistence" );
-			//
-			serverWarNameProd = props.getProperty( "server.war.name.prod" );
-			empresasFileProd = props.getProperty( "wildfly.base" ) +sep+ "standalone" +sep+ "deployments" +sep+ serverWarNameProd + props.getProperty( "server.empresas" );
-			persistenceFileProd = props.getProperty( "wildfly.base" ) +sep+ "standalone" +sep+ "deployments" +sep+ serverWarNameProd + props.getProperty( "server.persistence" );
-			//
-			scriptsFolder = props.getProperty( "wildfly.base" ) +sep+ "standalone" +sep+ "deployments" +sep+ "CFERondanetAltaEmpresas.war" +sep+ "scripts";
-			xsdFolder = props.getProperty( "wildfly.base" ) +sep+ "standalone" +sep+ "deployments" +sep+ "CFERondanetAltaEmpresas.war" +sep+ "resources" +sep+ "xsd";
-			keystoreFile = props.getProperty( "wildfly.base" ) +sep+ "standalone" +sep+ "deployments" +sep+ "CFERondanetAltaEmpresas.war" +sep+ "resources" +sep+ "otros" +sep+ "vacio.keystore";
-			printResourcesFolder = props.getProperty( "wildfly.base" ) +sep+ "standalone" +sep+ "deployments" +sep+ "CFERondanetAltaEmpresas.war" +sep+ "resources" +sep+ "PrintResources";
+			scriptsFolder = props.getProperty( "wildfly.base" ) +sep+ "standalone" +sep+ "deployments" +sep+ "CFERondanetGestionEmpresas.war" +sep+ "scripts";
+			xsdFolder = props.getProperty( "wildfly.base" ) +sep+ "standalone" +sep+ "deployments" +sep+ "CFERondanetGestionEmpresas.war" +sep+ "resources" +sep+ "xsd";
+			keystoreFile = props.getProperty( "wildfly.base" ) +sep+ "standalone" +sep+ "deployments" +sep+ "CFERondanetGestionEmpresas.war" +sep+ "resources" +sep+ "otros" +sep+ "vacio.keystore";
+			printResourcesFolder = props.getProperty( "wildfly.base" ) +sep+ "standalone" +sep+ "deployments" +sep+ "CFERondanetGestionEmpresas.war" +sep+ "resources" +sep+ "PrintResources";
 			//
 			dbUrl = props.getProperty( "database.url" );
 			dbUser = props.getProperty( "database.user" );
 			dbPass = props.getProperty( "database.pass" );
 			//
-			isLinux = props.getProperty( "database.os" ).equals( "linux" );
-			//
+			isLinux = props.getProperty( "os" ).equals( "linux" );
+			isLinux = props.getProperty( "database.linux" ) != null ? props.getProperty( "database.linux" ).equals("true") : false; 
 		} catch (IOException e) {
-			direccionAppFolder = "/usr/bin/CFERondanetServer";
-			direccionHome = "/usr/CFERondanetServer";
-			standaloneFile = "/usr/bin/CFERondanetServer/wildfly-10.1.0.Final/standalone/configuration/standalone.xml";
-			serverWarNameTest = "CFERondanetServer.war";
-			empresasFileTest = serverWarNameTest + "/WEB-INF/classes/META-INF/empresas.xml";
-			persistenceFileTest = serverWarNameTest + "/WEB-INF/classes/META-INF/persistence.xml";
-			scriptsFolder = "/usr/bin/CFERondanetServer/wildfly-10.1.0.Final/standalone" +sep+ "deployments" +sep+ "CFERondanetAltaEmpresas.war" +sep+ "scripts";
-			xsdFolder = "/usr/bin/CFERondanetServer/wildfly-10.1.0.Final/standalone" +sep+ "deployments" +sep+ "CFERondanetAltaEmpresas.war" +sep+ "xsd";
-			keystoreFile = null;
+			throw new RuntimeException( "No se pudo cargar el archivo de configuracion o alguno de sus parametros" );
 		}
 	}
 
@@ -98,13 +95,6 @@ public class Configuration {
 		return propiedades;
 	}
 
-	public String getServerWarNameTest() {
-		return serverWarNameTest;
-	}
-
-	public String getEmpresasFile( boolean isDesarrollo ) {
-		return isDesarrollo ? empresasFileTest : empresasFileProd;
-	}
 
 	public String getDbUrl() {
 		return dbUrl;
@@ -130,14 +120,6 @@ public class Configuration {
 		return printResourcesFolder;
 	}
 
-	public String getPersistenceFile( boolean isDesarrollo ) {
-		return isDesarrollo ? persistenceFileTest : persistenceFileProd;
-	}
-
-	public String getServerWarNameProd() {
-		return serverWarNameProd;
-	}
-
 	public String getKeystoreFile() {
 		return keystoreFile;
 	}
@@ -145,6 +127,29 @@ public class Configuration {
 	public boolean isLinux() {
 		return isLinux;
 	}
+
+	public boolean isLinuxDB() {
+		return isLinuxDB;
+	}
+
+	public String getEmpresasFile( String serverWarName ) {
+		empresasFile = wildflyFolder +sep+ "standalone" +sep+ "deployments" +sep+ serverWarName + auxEmpresasXml;
+		return empresasFile;
+	}
+
+	public String getPersistenceFile( String serverWarName ) {
+		persistenceFile = wildflyFolder +sep+ "standalone" +sep+ "deployments" +sep+ serverWarName + auxPersistenceXml;
+		return persistenceFile;
+	}
+
+	public String getServerWarDirectory() {
+		return wildflyFolder +sep+ "standalone" +sep+ "deployments" +sep;
+	}
+
+	public String getWildflyFolder() {
+		return wildflyFolder;
+	}
+
 	
 	
 }

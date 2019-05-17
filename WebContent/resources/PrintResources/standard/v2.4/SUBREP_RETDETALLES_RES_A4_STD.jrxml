@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubReportResguardoRetenDetalles" pageWidth="529" pageHeight="840" columnWidth="529" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.8150000000000035"/>
+	<property name="ireport.x" value="252"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="IND_FACT" class="java.lang.String"/>
+	<field name="codRet" class="java.lang.String"/>
+	<field name="tasa" class="java.lang.String"/>
+	<field name="mntSujetoARet" class="java.lang.String"/>
+	<field name="valRetPerc" class="java.lang.String"/>
+	<field name="codRetDesc" class="java.lang.String"/>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="46" height="15"/>
+				<textElement textAlignment="Left">
+					<font fontName="arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codRet}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="297" y="0" width="36" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tasa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="335" y="0" width="93" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($P{IND_FACT}!=null && $P{IND_FACT}.equals("9"))?
+$F{mntSujetoARet}.contains("-")?$F{mntSujetoARet}:"-"+$F{mntSujetoARet}
+:$F{mntSujetoARet}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="430" y="0" width="99" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($P{IND_FACT}!=null && $P{IND_FACT}.equals("9"))?
+$F{valRetPerc}.contains("-")?$F{valRetPerc}:"-"+$F{valRetPerc}
+:$F{valRetPerc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="47" y="0" width="248" height="15">
+					<printWhenExpression><![CDATA[$F{codRetDesc}!=null&&!$F{codRet}.trim().equals($F{codRetDesc}.trim())&&!$F{codRetDesc}.equals("")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font fontName="arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codRetDesc}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubReportDetallesPronto" pageWidth="198" pageHeight="50" columnWidth="198" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Empty" uuid="13c048c3-55d7-404b-bd01-7d7bd7b4af8c">
+	<property name="ireport.zoom" value="2.8531167061100033"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="MONTOS_BRUTOS" class="java.lang.Boolean"/>
+	<field name="lineNumber" class="java.lang.String"/>
+	<field name="billingIndicator" class="java.lang.String"/>
+	<field name="agentResponsibleIndicator" class="java.lang.String"/>
+	<field name="detailAmount" class="java.lang.String"/>
+	<field name="surchargeAmount" class="java.lang.String"/>
+	<field name="porcSurcharge" class="java.lang.String"/>
+	<field name="discountAmount" class="java.lang.String"/>
+	<field name="porcDiscount" class="java.lang.String"/>
+	<field name="unitPrice" class="java.lang.String"/>
+	<field name="unit" class="java.lang.String"/>
+	<field name="quantity" class="java.lang.String"/>
+	<field name="productDescription" class="java.lang.String"/>
+	<field name="productId" class="java.lang.String"/>
+	<columnHeader>
+		<band height="15" splitType="Prevent">
+			<staticText>
+				<reportElement uuid="0458a326-240d-4a83-bc52-36815ee1df99" stretchType="RelativeToBandHeight" x="22" y="0" width="121" height="15" isRemoveLineWhenBlank="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="arial" size="10" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[CONCEPTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1fc52c71-c5f3-47db-a913-90b57b7f4247" stretchType="RelativeToBandHeight" x="0" y="0" width="22" height="15" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="arial" size="10" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[IVA]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="d1c8b4a6-a04a-4dd5-90fb-a417693e2661" positionType="Float" stretchType="RelativeToTallestObject" x="121" y="0" width="77" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($P{MONTOS_BRUTOS}==true)? "IMPORTE C/IVA":"IMPORTE"]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Prevent">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="e3b5c49c-63e9-474c-b7d8-2e63fd538cb4" positionType="Float" stretchType="RelativeToTallestObject" x="22" y="0" width="122" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{productDescription}.trim()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="51996eac-d351-4bee-af46-e74913ee904f" positionType="Float" stretchType="RelativeToTallestObject" x="143" y="0" width="55" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{detailAmount}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00 %" isBlankWhenNull="true">
+				<reportElement uuid="cabfb118-0a52-45df-9ebd-30cdc160a919" x="0" y="0" width="22" height="15"/>
+				<textElement>
+					<font fontName="arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{billingIndicator}==null?"--":$F{billingIndicator}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="15">
+			<printWhenExpression><![CDATA[$F{quantity}!=null
+|| $F{unitPrice}!=null
+|| $F{porcDiscount}!=null
+|| $F{discountAmount}!=null]]></printWhenExpression>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="84120578-c430-44bd-bea0-278ce16b4c61" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="51" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00 %" isBlankWhenNull="true">
+				<reportElement uuid="89c06944-66a8-4685-b988-084872543b23" positionType="Float" stretchType="RelativeToTallestObject" x="103" y="0" width="30" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{porcDiscount}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="faf45331-21fd-4c4a-bf9c-a4b81320f559" positionType="Float" stretchType="RelativeToTallestObject" x="132" y="0" width="66" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{discountAmount}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="5311d3ab-d55a-43ff-822e-dc0646d96e41" positionType="Float" stretchType="RelativeToTallestObject" x="50" y="0" width="54" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{unitPrice}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

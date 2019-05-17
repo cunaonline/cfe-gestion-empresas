@@ -4,13 +4,10 @@ import org.w3c.dom.Element;
 
 public class PersistenceHandler extends XmlHandler {
 
-	public PersistenceHandler( boolean isDesarrollo ) throws Exception {
-		super( Configuration.getInstance().getPersistenceFile( isDesarrollo ) );
+	public PersistenceHandler( String serverWarName ) throws Exception {
+		super( Configuration.getInstance().getPersistenceFile( serverWarName ) );
 	}
 	
-	private PersistenceHandler( String fileName ) throws Exception {
-		super( fileName );
-	}
 	
 	/**
 	 * Crea una empresa en el archivo empresas.xml. Usando los valores por defecto para db, publicacion e historico.
@@ -75,8 +72,18 @@ public class PersistenceHandler extends XmlHandler {
 		agregarNodo( "persistence", elem );
 	}
 	
-	public static void main(String[] args) throws Exception {
-		PersistenceHandler eh = new PersistenceHandler( "C:\\CFERondanetServer\\wildfly-10.1.0.Final\\standalone\\deployments\\CFERondanetServer.war\\WEB-INF\\classes\\META-INF\\persistence.xml" );
-		eh.agregarUnaEmpresa( "gs1PU" );
+	public void eliminarUnaEmpresa( String nombre ) {
+		super.eliminarNodo( "//persistence/persistence-unit[@name=" +nombre+ "PU]");
 	}
+	
+	/* */
+	public static void main(String[] args) throws Exception {
+		PersistenceHandler eh = new PersistenceHandler( "C:\\nuevoserver\\wildfly-10.1.0.Final\\standalone\\deployments\\CFERondanetServer.OK.war\\WEB-INF\\classes\\META-INF\\persistence.xml", true );
+		eh.eliminarUnaEmpresa( "empresatest15" );
+	}
+	// constructor solo para testing
+	private PersistenceHandler( String fileName, boolean dummie ) throws Exception {
+		super( fileName );
+	}
+	/* */
 }

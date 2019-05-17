@@ -1,0 +1,40 @@
+﻿
+Iniciales 	|Formato	|Linea 2.X.X	|Linea 1.X.X	|CR/Incidente	|fecha		|Resumen
+-------------------------------------------------------------------------------
+
+
+v1.8 ------------------------------------------
+FZ           Factura y Tk A4, Remito   2.1.2m                                                715                             15/01/2014        
+	
+	Factura y Ticket A4: Se agregó la descripción adicional en una lína aparte en el Subreporte Detalles. Se agregó campos Lugar de Destino/Entrega e dentificación 	de Compra.Se modificó el número de página puesto que en L'Oreal detectaron que no se imprimía correctamente cuando eran mas de 9 páginas.
+	Remito: Se agregaron campos Lugar de Destino y Entrega e Identificación de Compra.
+        Factura: Se agregó la fecha de vencimiento del comprobante.
+
+v1.7 ------------------------------------------ 
+FZ              Todos los A4           2.1.2e                                                 716                             13/12/2013         Se cambío el tipo de letra de la Adenda por Courier New. Se modificó el pie página.
+
+
+v1.6 ------------------------------------------ 
+FZ                                     2.1.2e                                                                                  24/10/2013         Se agregaron para factura y ticket A4, la tabla de Retenciones/Percepciones y el Total Monto Retenido/Percibido.
+
+v1.5 ------------------------------------------ 
+FZ                                     2.1.2d                                                                                  18/10/2013         Se creó la primer versión del e-Remito.Se modificó que cuando un comprobante es de contingencia, el QR y su Código de Verificación no se carguen. Se arreglo el problema de los números de página.
+
+v1.4 ------------------------------------------                                                                               
+FZ                                     2.1.2b                                                                                  04/10/2013         Se modificó el Resguardo para que ahora la retención contenga el código con su descripción. Se modificó en la Factura el título del subreporte de Descuentos/Recargo Globales
+
+v1.3 ------------------------------------------
+ 
+FZ                                      2.1.2                                                                                   01/10/2013        Se modificó el IVA en Suspenso para que no aparezca cuando es null, vacio o 0.00  
+        
+                                      
+v1.2 ------------------------------------------
+         
+FZ                      A4, ANGOSTO     2.1.2                                                 510/544                           30/09/2013      En Factura: Se agregó columna de recargo de linea. Se quitó la de % de descuento. Se agregó una columna que indica el tipo en los descuentos/recargos globales. Se remplazó el formato de Resguardo de la v1.1 por el de la v1.2
+
+
+v1.1 -----------------------------------------
+
+AC			A4, ANGOSTO	2.1.2							505				05/09/2013	Se agrego descuento de linea y globales	
+AC			A4, ANGOSTO	2.1.2							507				04/09/2013	Se corrigio para los ítems con indicadores de facturación 10, 11 y 12 aparece “null” en la columna de iva		
+AC			A4, ANGOSTO	2.1.2							507				04/09/2013	En la sección de totales faltaría se agrego Total monto exportación y asimiladas, Total monto impuesto percibido y total monto iva en suspenso.                      

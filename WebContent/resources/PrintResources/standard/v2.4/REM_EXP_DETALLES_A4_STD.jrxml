@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubReportResguardoDetalles" pageWidth="557" pageHeight="840" columnWidth="557" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="2.1961500000000083"/>
+	<property name="ireport.x" value="549"/>
+	<property name="ireport.y" value="0"/>
+	<field name="lineNumber" class="java.lang.String"/>
+	<field name="indFact" class="java.lang.String"/>
+	<field name="productDescription" class="java.lang.String"/>
+	<field name="sapCode" class="java.lang.String"/>
+	<field name="quantity" class="java.lang.String"/>
+	<field name="unit" class="java.lang.String"/>
+	<field name="unitPrice" class="java.lang.String"/>
+	<field name="detailAmount" class="java.lang.String"/>
+	<columnHeader>
+		<band height="17" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="1" y="2" width="20" height="13" backcolor="#CCCCCC"/>
+				<textElement textAlignment="Center">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[#]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="95" y="2" width="209" height="13" isRemoveLineWhenBlank="true" backcolor="#CCCCCC"/>
+				<textElement textAlignment="Center">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DETALLE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="23" y="2" width="70" height="13" backcolor="#CCCCCC"/>
+				<textElement textAlignment="Center">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CÓDIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="306" y="2" width="51" height="13" backcolor="#CCCCCC"/>
+				<textElement textAlignment="Center">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CANTIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="359" y="2" width="65" height="13" backcolor="#CCCCCC"/>
+				<textElement textAlignment="Center">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UNIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="426" y="2" width="62" height="13" backcolor="#CCCCCC"/>
+				<textElement textAlignment="Center">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PRECIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="490" y="2" width="66" height="13" backcolor="#CCCCCC"/>
+				<textElement textAlignment="Center">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MONTO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Prevent">
+			<textField>
+				<reportElement x="1" y="1" width="20" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{lineNumber}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" mode="Transparent" x="95" y="1" width="209" height="15" isRemoveLineWhenBlank="true"/>
+				<textElement>
+					<font fontName="arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new String($F{productDescription}.getBytes("UTF-8"), "UTF-8")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="23" y="1" width="70" height="15" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sapCode}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="306" y="1" width="51" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="359" y="1" width="64" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{unit}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="491" y="1" width="65" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{indFact}!=null && $F{indFact}.equals("8"))?
+($F{detailAmount}.contains("-"))?
+$F{detailAmount}:"-"+$F{detailAmount}
+:$F{detailAmount}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="426" y="1" width="62" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{indFact}!=null && $F{indFact}.equals("8"))?
+$F{quantity}.contains("-")?
+$F{unitPrice}:"-"+$F{unitPrice}
+:$F{unitPrice}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
