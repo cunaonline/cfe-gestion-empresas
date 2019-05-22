@@ -74,7 +74,7 @@ public class Configuration {
 			dbPass = props.getProperty("database.pass");
 			//
 			isLinux = props.getProperty("os").equals("linux");
-			isLinux = props.getProperty("database.linux") != null ? props.getProperty("database.linux").equals("true")
+			isLinuxDB = props.getProperty("database.linux") != null ? props.getProperty("database.linux").equals("true")
 					: false;
 
 			logsFolder = props.getProperty("app.logs") != null ? props.getProperty("app.logs") : "";
