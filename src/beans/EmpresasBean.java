@@ -1,40 +1,13 @@
 package beans;
 
-import static ctes.Ctes.ACTUALIZACION_PASS_FTPS_PARAM_NAME;
-import static ctes.Ctes.ACTUALIZACION_USER_FTPS_PARAM_NAME;
-import static ctes.Ctes.CIUDADL_PARAM_NAME;
-import static ctes.Ctes.DEPARTAMENTO_PARAM_NAME;
-import static ctes.Ctes.HABILITAR_CFE_ENTRY_PARAM_NAME;
-import static ctes.Ctes.HOME_APP_FOLDER_PARAM_NAME;
-import static ctes.Ctes.HOME_FOLDER_PARAM_NAME;
-import static ctes.Ctes.KEYSTORE_FILENAME_PARAM_NAME;
-import static ctes.Ctes.LOGO_PATH;
-import static ctes.Ctes.NOMBRE_EMPRESA_PARAM_NAME;
-import static ctes.Ctes.PASSWORD_RNC_PARAM_NAME;
-import static ctes.Ctes.RAZON_SOCIALL_PARAM_NAME;
-import static ctes.Ctes.RUT_EMISOR_PARAM_NAME;
-import static ctes.Ctes.TELEFONO1_EMISOR_PARAM_NAME;
-import static ctes.Ctes.TELEFONO2_EMISOR_PARAM_NAME;
-import static ctes.Ctes.TIPO_APLICACION;
-import static ctes.Ctes.URL_RNCENTRAL_CONF_RECHAZOS_DGI_PARAM_NAME;
-import static ctes.Ctes.URL_RNCENTRAL_ENVIO_ACUSES_PARAM_NAME;
-import static ctes.Ctes.URL_RNCENTRAL_ENVIO_CONFIRMACION_ACUSES_PARAM_NAME;
-import static ctes.Ctes.URL_RNCENTRAL_ENVIO_ERRORES_PARAM_NAME;
-import static ctes.Ctes.URL_RNCENTRAL_ENVIO_SOBRES_CFE_HP_PARAM_NAME;
-import static ctes.Ctes.URL_RNCENTRAL_ENVIO_SOBRES_CFE_LP_PARAM_NAME;
-import static ctes.Ctes.URL_RNCENTRAL_ENVIO_STATUS_PARAM_NAME;
-import static ctes.Ctes.URL_RNCENTRAL_MONITOREO_PARAM_NAME;
-import static ctes.Ctes.URL_RNCENTRAL_RECEPCION_ACUSES_PARAM_NAME;
-import static ctes.Ctes.URL_RNCENTRAL_RECEPCION_RECEPTORES_ELECTRONICOS_PARAM_NAME;
-import static ctes.Ctes.URL_RNCENTRAL_RECEPCION_RECHAZOS_DGI_PARAM_NAME;
-import static ctes.Ctes.URL_RNCENTRAL_RECEPCION_SOBRES_PARAM_NAME;
-import static ctes.Ctes.URL_RNCENTRAL_RECEPCION_USUARIOS_PARAM_NAME;
-import static ctes.Ctes.URL_RNCENTRAL_VALORES_UI_PARAM_NAME;
-import static ctes.Ctes.URL_WS_CONSULTA_DGI_PARAM_NAME;
-import static ctes.Ctes.URL_WS_DGI_PARAM_NAME;
-
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -51,12 +24,6 @@ import javax.validation.ConstraintViolation;
 import ctrl.ControladorEmpresa;
 import domain.Empresa;
 import utils.Configuration;
-import utils.DataBaseManager;
-import utils.EmpresasHandler;
-import utils.FileUtils;
-import utils.PersistenceHandler;
-import utils.RNEncrypter;
-import utils.StandaloneHandler;
 
 @ManagedBean(name = "empresaBean")
 @SessionScoped
@@ -65,6 +32,18 @@ public class EmpresasBean implements Serializable {
 	private static final long serialVersionUID = 7765876811740798583L;
 	private static final String FORM = "loginForm";
 	private static final String SEP = java.io.File.separator;
+
+	private static boolean empresaCreadaOk;
+	private String mensajeErrorAltaEmpresa = "";
+
+	private boolean dbCreada = false;
+	private boolean appInstalada = false;
+	private boolean appParametrizada = false;
+	private boolean homeFolderCreado = false;
+	private boolean homeAppFolderCreado = false;
+	private boolean agregadoStandalone = false;
+	private boolean agregadaEmpresaPersistence = false;
+	private boolean agregadaEmpresa = false;
 
 	private String nombre = null;
 	private String rut = null;
@@ -80,8 +59,8 @@ public class EmpresasBean implements Serializable {
 	private String telefono2 = null;
 	private String ciudad = "Montevideo";
 	private String departamento = "Montevideo";
-	private Integer maxConnections = 100;
-	private Integer minConnections = 10;
+	private Integer maxConnections = 10;
+	private Integer minConnections = 3;
 	//
 	private String version;
 	private List<SelectItem> versionesDisponibles;
@@ -112,6 +91,15 @@ public class EmpresasBean implements Serializable {
 		for (String auxWarName : directorios) {
 			warsDisponibles.add(new SelectItem(auxWarName, auxWarName.substring(0, auxWarName.length() - 4)));
 		}
+		actualizarCtrl();
+
+	}
+
+	public void actualizarCtrl() {
+		Empresa empresa = new Empresa(nombre, rut, passwordRNC, homeFolder, homeAppFolder, produccion, razonSocial,
+				keystoreFile, logo, telefono1, telefono2, ciudad, departamento, maxConnections, minConnections, version,
+				war);
+		this.ctrlEmpresa.setEmpresa(empresa);
 	}
 
 	public String getNombre() {
@@ -227,10 +215,8 @@ public class EmpresasBean implements Serializable {
 	}
 
 	public String login() {
-		Empresa empresa = new Empresa(nombre, rut, passwordRNC, homeFolder, homeAppFolder, produccion, razonSocial,
-				keystoreFile, logo, telefono1, telefono2, ciudad, departamento, maxConnections, minConnections, version,
-				war);
-		this.ctrlEmpresa.setEmpresa(empresa);
+		errores.clear();
+		actualizarCtrl();
 		FacesContext context = FacesContext.getCurrentInstance();
 		System.out.println("login");
 
@@ -243,14 +229,15 @@ public class EmpresasBean implements Serializable {
 				context.addMessage(FORM + ":bAceptar",
 						new FacesMessage(FacesMessage.SEVERITY_ERROR, unError.getMessage(), ""));
 			}
-
 			return "ERROR";
 		}
+		context.addMessage(FORM + ":bAceptar",
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Datos Validados Correctamente", ""));
 		System.out.println(nombre + "-" + rut + "-" + homeFolder + "-" + razonSocial);
 		return "dummie";
 	}
 
-	private boolean parametrosOK;
+	private boolean parametrosOK = false;
 
 	public boolean isParametrosOK() {
 		System.out.println("isparametrosOK: " + parametrosOK);
@@ -265,234 +252,62 @@ public class EmpresasBean implements Serializable {
 		this.version = version;
 	}
 
-	private static boolean empresaCreadaOk;
-	private String mensajeErrorAltaEmpresa = "";
+	private List<Mensaje> errores = new ArrayList<Mensaje>();
 
 	public void isConfirmadoOk() {
-		System.out.println("entra");
-		boolean baseCreadaOK = false;
-		if (parametrosOK) {
-			//
-			empresaCreadaOk = false;
-			parametrosOK = false;
-			// variables afuera para poder elimninar todo si hay algun error.
-			String wildflyFolder = Configuration.getInstance().getWildflyFolder();
-			String dbURL = Configuration.getInstance().getDbUrl();
-			String dbUser = Configuration.getInstance().getDbUser();
-			String dbPass;
-			try {
-				dbPass = RNEncrypter.decrypt(Configuration.getInstance().getDbPass());
-			} catch (Exception e) {
-				dbPass = "";
-			}
-			this.nombre = this.nombre != null ? this.nombre : this.razonSocial;
-			String nombreBaseDatos = this.nombre.replaceAll(" ", "_") + (produccion ? "_prod" : "_test");
-
-			DataBaseManager db = new DataBaseManager();
-			EmpresasHandler eh = null;
-			PersistenceHandler ph = null;
-			try {
-				System.out.println("creando");
-				// conectamos con la generica (postgres) y creamos la base de
-				// datos
-				db.conectar();
-				db.crearBase(nombreBaseDatos, !Configuration.getInstance().isLinuxDB());
-				baseCreadaOK = true;
-				System.out.println("base creada");
-				db.cerrarConexion();
-				// conectamos con la recien creada y corremos los scripts
-				db.conectar("/" + nombreBaseDatos);
-				db.ejecutarStriptsBase(version, produccion);
-				System.out.println("tablas creadas");
-				// actualizamos los parametros
-				db.actualizarParametro(RAZON_SOCIALL_PARAM_NAME, this.razonSocial);
-				db.actualizarParametro(CIUDADL_PARAM_NAME, this.ciudad);
-				db.actualizarParametro(DEPARTAMENTO_PARAM_NAME, this.departamento);
-				db.actualizarParametro(TELEFONO1_EMISOR_PARAM_NAME, this.telefono1 != null ? this.telefono1 : "");
-				db.actualizarParametro(TELEFONO2_EMISOR_PARAM_NAME, this.telefono2 != null ? this.telefono2 : "");
-				db.actualizarParametro(NOMBRE_EMPRESA_PARAM_NAME, this.nombre);
-				db.actualizarParametro(RUT_EMISOR_PARAM_NAME, this.rut);
-				//
-				db.actualizarParametro(HOME_FOLDER_PARAM_NAME, this.homeFolder);
-				db.actualizarParametro(HOME_APP_FOLDER_PARAM_NAME, this.homeAppFolder);
-				db.actualizarParametro(LOGO_PATH, this.logo);
-
-				this.keystoreFile = nombre + ".keystore";
-				db.actualizarParametro(KEYSTORE_FILENAME_PARAM_NAME, this.keystoreFile);
-
-				db.actualizarParametroPassword(PASSWORD_RNC_PARAM_NAME, this.passwordRNC);
-				db.actualizarParametro(TIPO_APLICACION, "SAAS");
-				//
-				db.actualizarParametro(ACTUALIZACION_USER_FTPS_PARAM_NAME,
-						"cfeactualizador" + (produccion ? "" : "_test") + "@gs1uy.org");
-				db.actualizarParametroPassword(ACTUALIZACION_PASS_FTPS_PARAM_NAME, (produccion ? "" : ""));
-				//
-				// parametros para des y prod
-				String dirUrlCentralBase = "https://cfe.rondanet.com" + (produccion ? "" : ":5542")
-						+ "/cgi-bin/Receptor.cgi/";
-				db.actualizarParametro(URL_RNCENTRAL_ENVIO_ACUSES_PARAM_NAME, dirUrlCentralBase + "Envio");
-				db.actualizarParametro(URL_RNCENTRAL_ENVIO_CONFIRMACION_ACUSES_PARAM_NAME,
-						dirUrlCentralBase + "ConfRecepcionResp");
-				db.actualizarParametro(URL_RNCENTRAL_ENVIO_ERRORES_PARAM_NAME, dirUrlCentralBase + "Error");
-				db.actualizarParametro(URL_RNCENTRAL_ENVIO_SOBRES_CFE_HP_PARAM_NAME, dirUrlCentralBase + "Envio");
-				db.actualizarParametro(URL_RNCENTRAL_ENVIO_SOBRES_CFE_LP_PARAM_NAME, dirUrlCentralBase + "Envio");
-
-				db.actualizarParametro(URL_RNCENTRAL_ENVIO_STATUS_PARAM_NAME, dirUrlCentralBase + "EnvioInforme");
-				db.actualizarParametro(URL_RNCENTRAL_RECEPCION_SOBRES_PARAM_NAME, dirUrlCentralBase + "BajarSobres");
-				db.actualizarParametro(URL_RNCENTRAL_RECEPCION_ACUSES_PARAM_NAME,
-						dirUrlCentralBase + "BajarRespuestas");
-				db.actualizarParametro(URL_RNCENTRAL_RECEPCION_RECHAZOS_DGI_PARAM_NAME,
-						dirUrlCentralBase + "BajarRechazosDGI");
-				db.actualizarParametro(URL_RNCENTRAL_CONF_RECHAZOS_DGI_PARAM_NAME,
-						dirUrlCentralBase + "ConfRecepcionRech");
-				db.actualizarParametro(URL_RNCENTRAL_RECEPCION_USUARIOS_PARAM_NAME,
-						dirUrlCentralBase + "BajarUsuarios");
-				db.actualizarParametro(URL_RNCENTRAL_RECEPCION_RECEPTORES_ELECTRONICOS_PARAM_NAME,
-						dirUrlCentralBase + "BajarEmpresas");
-				db.actualizarParametro(URL_RNCENTRAL_MONITOREO_PARAM_NAME, dirUrlCentralBase + "EnvioInforme");
-				db.actualizarParametro(URL_RNCENTRAL_VALORES_UI_PARAM_NAME, dirUrlCentralBase + "BajarValoresUI");
-
-				// activamos por defecto el data entry
-				db.actualizarParametro(HABILITAR_CFE_ENTRY_PARAM_NAME, true);
-				//
-				if (produccion) {
-					db.actualizarParametro(URL_WS_CONSULTA_DGI_PARAM_NAME,
-							"https://efactura.dgi.gub.uy:6460/ePrueba/ws_consultasPrueba");
-					db.actualizarParametro(URL_WS_DGI_PARAM_NAME,
-							"https://efactura.dgi.gub.uy:6443/ePrueba/ws_eprueba");
-				} else {
-					db.actualizarParametro(URL_WS_CONSULTA_DGI_PARAM_NAME,
-							"https://efactura.dgi.gub.uy:6460/ePrueba/ws_consultasPrueba");
-					db.actualizarParametro(URL_WS_DGI_PARAM_NAME,
-							"https://efactura.dgi.gub.uy:6443/ePrueba/ws_eprueba");
-				}
-				System.out.println("parametros actualizados");
-				//
-				// creamos la estructura de carpetas
-				String auxFolder = null;
-				String auxDir = null;
-				//
-				auxDir = homeFolder + java.io.File.separator;
-				//
-				auxFolder = auxDir + "AckInternos";
-				new File(auxFolder).mkdirs();
-				auxFolder = auxDir + db.obtenerParametro("CARPETA_ACTUALIZACIONES", "actualizaciones");
-				new File(auxFolder).mkdirs();
-				auxFolder = auxDir + db.obtenerParametro("CARPETA_AEDITAR", "AEditar");
-				new File(auxFolder).mkdirs();
-				auxFolder = auxDir + db.obtenerParametro("CARPETA_BORRADORES", "AEditar/Borradores");
-				new File(auxFolder).mkdirs();
-				auxFolder = auxDir + db.obtenerParametro("CARPETA_PLANTILLAS", "AEditar/Plantillas");
-				new File(auxFolder).mkdirs();
-				auxFolder = auxDir + db.obtenerParametro("HIGH_PRIORITY_FOLDER", "AEnviar");
-				new File(auxFolder).mkdirs();
-				auxFolder = auxDir + db.obtenerParametro("LOW_PRIORITY_FOLDER", "AEnviarTKMenores");
-				new File(auxFolder).mkdirs();
-				auxFolder = auxDir + db.obtenerParametro("CAEs_TO_CREATE_FOLDER", "CAEsACargar");
-				new File(auxFolder).mkdirs();
-				auxFolder = auxDir + db.obtenerParametro("CAEs_CREATED_FOLDER", "CAEsCargados");
-				new File(auxFolder).mkdirs();
-				auxFolder = auxDir + db.obtenerParametro("CAEs_NOT_CREATED_FOLDER", "CAEsNoCargados");
-				new File(auxFolder).mkdirs();
-				auxFolder = auxDir + db.obtenerParametro("CONTROL_FOLDER", "Control");
-				new File(auxFolder).mkdirs();
-				auxFolder = auxDir + db.obtenerParametro("SENT_FOLDER", "Enviados");
-				new File(auxFolder).mkdirs();
-				auxFolder = auxDir + db.obtenerParametro("PRINT_OUTPUT_FOLDER", "Impresion");
-				new File(auxFolder).mkdirs();
-				auxFolder = auxDir + db.obtenerParametro("LOG_FOLDER", "Logs");
-				new File(auxFolder).mkdirs();
-				auxFolder = auxDir + db.obtenerParametro("NOT_SENT_FOLDER", "NoEnviados");
-				new File(auxFolder).mkdirs();
-				// auxFolder = auxDir + db.obtenerParametro(
-				// "PAQUETES_MENSUALES_NOEXISTE", "PaquetesMensuales" ); new
-				// File( auxFolder ).mkdirs();
-				auxFolder = auxDir + db.obtenerParametro("ASIGNACION_RANGO_CAE", "RangoCAEEntregados");
-				new File(auxFolder).mkdirs();
-				auxFolder = auxDir + db.obtenerParametro("SOLICITUD_RANGO_NO_ASIGNADO", "RangoCAENoAsignados");
-				new File(auxFolder).mkdirs();
-				auxFolder = auxDir + db.obtenerParametro("SOLICITUD_RANGO_CAE", "RangoCAEPedidos");
-				new File(auxFolder).mkdirs();
-				auxFolder = auxDir + db.obtenerParametro("RECEIVED_FOLDER", "Recibidos");
-				new File(auxFolder).mkdirs();
-				auxFolder = auxDir + db.obtenerParametro("BACKUP_FOLDER", "Respaldos");
-				new File(auxFolder).mkdirs();
-				auxFolder = auxDir + db.obtenerParametro("TEMP_FOLDER", "Temp");
-				new File(auxFolder).mkdirs();
-				//
-				auxDir = homeAppFolder + java.io.File.separator;
-				// los print resources
-				auxFolder = auxDir + db.obtenerParametro("PRINT_TEMPLATES_FOLDER", "PrintResources");
-				new File(auxFolder).mkdirs();
-				FileUtils.copyFolder(new File(Configuration.getInstance().getPrintResourcesFolder()),
-						new File(auxFolder));
-				// los xsds
-				FileUtils.copyFolder(new File(Configuration.getInstance().getXsdFolder()),
-						new File(this.homeAppFolder + SEP + "xsd"));
-				ctrlEmpresa.cambiarPermisos(auxDir, "gs1uy", "gs1uy");
-				System.out.println("Carpetas creadas correctamente");
-				// el nuevo keystore
-				FileUtils.copyFile(new File(Configuration.getInstance().getKeystoreFile()), keystoreFile,
-						new File(auxDir));
-				System.out.println("Keystore copiado correctamente");
-				// db.obtenerParametro( , );
-				//
-				// creamos la entrada en el standalone.
-				StandaloneHandler sh = new StandaloneHandler();
-				String nombreDS = nombre + "DS";
-
-				sh.agregarAppAStandalone(wildflyFolder, dbURL, dbUser, dbPass, nombreBaseDatos, nombreDS,
-						maxConnections.toString(), minConnections.toString());
-
-				System.out.println("Standalone.xml actualizado");
-				//
-				// creamos la entrada en empresas
-				eh = new EmpresasHandler(war);
-				eh.agregarUnaEmpresa(nombre, String.valueOf(rut));
-				System.out.println("Empresas.xml actualizado");
-				// creamos la entrada en el persistence:
-				ph = new PersistenceHandler(war);
-				ph.agregarUnaEmpresa(nombre);
-				System.out.println("persistence.xml actualizado");
-				//
-				System.out.println("Finalizando");
-				empresaCreadaOk = true;
-				limpiarDatos();
-			} catch (Exception e) {
-				//
-				empresaCreadaOk = false;
-				// guardamos flag y mensaje de error
-				mensajeErrorAltaEmpresa = e.getMessage();
-				// cerramos la conexion con la base actual, porque no se puede
-				// eliminar si esta activa. (solo la elimnamos si la creamos
-				// nosotros)
-				db.cerrarConexion();
-				if (baseCreadaOK) {
-					try {
-						db.conectar();
-						// eliminamos la base de datos y cerramos la conexion
-						db.eliminarBase(nombreBaseDatos);
-					} catch (Exception e1) {
-						// No hacemos nada
-					}
-					db.cerrarConexion();
-				}
-				//
-				org.apache.commons.io.FileUtils.deleteQuietly(new File(homeFolder + java.io.File.separator));
-				org.apache.commons.io.FileUtils.deleteQuietly(new File(homeAppFolder + java.io.File.separator));
-				// eliminamos los archivos
-				if (eh != null)
-					eh.eliminarUnaEmpresa(rut);
-				if (ph != null)
-					ph.eliminarUnaEmpresa(nombre);
-				// imprimimos en el log
-				e.printStackTrace();
-				System.out.println("ERROR: " + mensajeErrorAltaEmpresa);
-				// cerramos la conexion
-				if (db != null)
-					db.cerrarConexion();
-			}
+		empresaCreadaOk = false;
+		ctrlEmpresa.limpiarMensajes();
+		errores.clear();
+		if (this.login().toUpperCase().equals("ERROR")) {
+			errores.add(new Mensaje("ERROR", "Validación de datos fallida. Por favor revise los datos nuevamente."));
+			return;
 		}
+
+		dbCreada = this.ctrlEmpresa.crearDB();
+		appInstalada = false;
+		appParametrizada = false;
+		homeFolderCreado = false;
+		homeAppFolderCreado = false;
+		agregadoStandalone = false;
+		agregadaEmpresaPersistence = false;
+		agregadaEmpresa = false;
+
+		if (dbCreada) {
+			appInstalada = this.ctrlEmpresa.ejecutarScriptInstalacion();
+			appParametrizada = this.ctrlEmpresa.parametrizarBD();
+			homeFolderCreado = this.ctrlEmpresa.crearHomeFolder();
+			homeAppFolderCreado = this.ctrlEmpresa.crearHomeAppFolder();
+			agregadoStandalone = this.ctrlEmpresa.agregarStandalone();
+			agregadaEmpresaPersistence = this.ctrlEmpresa.agregarEmpresaPersistence();
+			agregadaEmpresa = this.ctrlEmpresa.agregarEmpresa();
+		}
+
+		if (dbCreada && appInstalada && appParametrizada && homeFolderCreado && homeAppFolderCreado && agregadaEmpresa
+				&& agregadaEmpresaPersistence && agregadoStandalone) {
+			limpiarDatos();
+			empresaCreadaOk = true;
+		}
+
+		List<String> tmpErrores = this.ctrlEmpresa.getMensajes().get("ERROR");
+		for (Iterator iterator = tmpErrores.iterator(); iterator.hasNext();) {
+			String item = (String) iterator.next();
+			errores.add(new Mensaje("ERROR", item));
+		}
+		tmpErrores = this.ctrlEmpresa.getMensajes().get("INFO");
+		for (Iterator iterator = tmpErrores.iterator(); iterator.hasNext();) {
+			String item = (String) iterator.next();
+			errores.add(new Mensaje("INFO", item));
+		}
+		loguearDatosEjecución();
+	}
+
+	public void actualizarRutas() {
+		actualizarCtrl();
+		this.homeAppFolder = Configuration.getInstance().getDireccionAppFolder() + ctrlEmpresa.nombreAmbiente();
+		this.homeFolder = Configuration.getInstance().getDireccionHome() + ctrlEmpresa.nombreAmbiente();
+
+		this.logo = ctrlEmpresa.getEmpresa().getNombre() + EmpresasBean.SEP + "logo"
+				+ ctrlEmpresa.getEmpresa().getNombre() + ".jpg";
 	}
 
 	private void limpiarDatos() {
@@ -511,6 +326,7 @@ public class EmpresasBean implements Serializable {
 		ciudad = "Montevideo";
 		departamento = "Montevideo";
 		maxConnections = 100;
+		this.errores.clear();
 	}
 
 	public void cbModificado() {
@@ -576,4 +392,38 @@ public class EmpresasBean implements Serializable {
 		return mensajeErrorAltaEmpresa;
 	}
 
+	public List<Mensaje> getErrores() {
+		return errores;
+	}
+
+	public void setErrores(List<Mensaje> errores) {
+		this.errores = errores;
+	}
+
+	private void loguearDatosEjecución() {
+		try {
+			String nombreArchivo = !empresaCreadaOk ? "ERROR-" : "EXITO-";
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+			String dateString = format.format(new Date());
+
+			nombreArchivo = nombreArchivo + ctrlEmpresa.nombreAmbiente() + dateString.toString() + ".log";
+			File fout = new File(Configuration.getInstance().getLogsFolder() + nombreArchivo);
+			FileOutputStream fos = new FileOutputStream(fout);
+
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+			for (Iterator iterator = errores.iterator(); iterator.hasNext();) {
+				Mensaje mensaje = (Mensaje) iterator.next();
+				bw.write(mensaje.toString());
+				bw.newLine();
+			}
+
+			bw.close();
+			errores.add(new Mensaje("INFO",
+					"Log guardado en: " + Configuration.getInstance().getLogsFolder() + nombreArchivo));
+		} catch (Exception e) {
+			errores.add(new Mensaje("ERROR",
+					"No se pudo loguear la ejecución. Existe la ruta configurada para los logs?. Error: "
+							+ e.getMessage()));
+		}
+	}
 }

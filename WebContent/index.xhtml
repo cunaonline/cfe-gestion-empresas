@@ -53,7 +53,6 @@
 	   		if ( creadaOK ) {
 		   		$('.modalPseudoClassCreada').on('hidden.bs.modal', function () { 
 		   			location.reload();
-		   			redirigir();
 	  	 		});
 		   		$('.modalPseudoClassCreada').modal();
 	   		} else {
@@ -88,9 +87,11 @@
 						<b:column medium-screen="6">
 							<b:panelGrid size="md" columns="2">
 								<b:radiobutton value="#{empresaBean.produccion}"
-									itemLabel="Desarrollo" itemValue="false" class="rbAmbiente" />
+									itemLabel="Desarrollo" itemValue="false" class="rbAmbiente" onclick="ajax:empresaBean.actualizarRutas()"
+								update="itHAFolder itHFolder itLogo" ajax="true"/>
 								<b:radiobutton value="#{empresaBean.produccion}"
-									itemLabel="Produccion" itemValue="true" class="rbAmbiente" />
+									itemLabel="Produccion" itemValue="true" class="rbAmbiente" onclick="ajax:empresaBean.actualizarRutas()"
+								update="itHAFolder itHFolder itLogo" ajax="true" />
 							</b:panelGrid>
 						</b:column>
 					</b:row>
@@ -135,7 +136,7 @@
 						<b:column medium-screen="6">
 							<b:inputText placeholder="Nombre de la empresa"
 								value="#{empresaBean.nombre}" id="idItNombre"
-								onkeyup="ajax:empresaBean.capitalizeText()"
+								onkeyup="ajax:empresaBean.actualizarRutas()"
 								update="itHAFolder itHFolder itLogo" ajax="true" />
 						</b:column>
 					</b:row>
@@ -272,7 +273,7 @@
 							<h:outputText value="Home App Folder:" class="otDescripValor" />
 						</b:column>
 						<b:column medium-screen="6">
-							<b:inputText id="itHAFolder" placeholder="Directorio Home"
+							<b:inputText id="itHAFolder" placeholder="Directorio Home" 
 								disabled="#{empresaBean.getNombre().length() == 0}"
 								value="#{empresaBean.homeAppFolder}" />
 						</b:column>
@@ -293,8 +294,8 @@
 						<b:column span="2" offset="2">
 						</b:column>
 						<b:column span="4">
-							<b:commandButton value="Crear Empresa" id="bAceptar"
-								onclick="ajax:empresaBean.login()" update="@form" look="primary"
+							<b:commandButton value="Validar/Crear Empresa" id="bAceptar" ajax="true"
+								onclick="ajax:empresaBean.login()" update="@form " look="primary"
 								oncomplete="if( #{empresaBean.parametrosOK } &amp;&amp; confirm('Desea dar de alta la empresa?')){ confirmarCreado(); mostrarTareas(); }"
 								style="width:100%" />
 						</b:column>
@@ -303,7 +304,7 @@
 				<b:commandButton id="hdnBtnRedirect" value="
 "
 					onclick="ajax:empresaBean.isConfirmadoOk()" ajax="true"
-					update="@form hdnBtnRedirect" style="display: none;"
+					update="@form hdnBtnRedirect listaNotificaciones listaErrores " style="display: none;"
 					oncomplete="ocultaModal()" />
 				<b:remoteCommand name="ocultaModal"
 					oncomplete="ocultarFinalizado( #{empresaBean.empresaCreadaOk} )" />
@@ -326,27 +327,20 @@
 			<p>
 				<b:modal id="amodal" title="Creando la nueva empresa"
 					styleClass="modalPseudoClass" closable="false"
-					close-on-escape="false" backdrop="false">
-					<p>Realizando las siguientes tareas:</p>
-					<p>Crear la base de datos.</p>
-					<p>Actualizar la tabla de parametros.</p>
-					<p>Crear la estructura de carpetas en el servidor.</p>
-					<p>Generar entrada en standalone.xml.</p>
-					<p>Generar entrada en empresas.xml.</p>
-					<p>Generar entrada en persistence.xml.</p>
-					<p></p>
-					<p>
-						<small>Este mensaje se cerrara cuando se haya finalizado.</small>
-					</p>
-					<f:facet name="footer">
-						<b:button id="idModalCreandoOk" value="Finalizar" look="primary"
-							dismiss="modal" styleClass="modalCreandoOk" disabled="true" />
-					</f:facet>
+					close-on-escape="false" backdrop="false" >
+					<p ><h3 style="text-align: center;">Creando Empresa</h3></p>
 				</b:modal>
 			</p>
 			<p>
-				<b:modal title="Empresa Creada" styleClass="modalPseudoClassCreada">
-					<p>La empresa se creo correctamente.</p>
+				<b:modal title="Empresa Creada" styleClass="modalPseudoClassCreada" id="modalOk">
+					<p><h5>Empresa creada correctamente. Log de acciones ejecutadas:</h5></p>
+					<b:dataTable value="#{empresaBean.errores}" id="listaNotificaciones"
+					               var="error"
+					               caption="Empresa creada correctamente. Log de acciones ejecutadas:"
+					               >
+					    <b:dataTableColumn value="#{error.tipo}" label="Tipo Mensaje" width="100px"/>
+					    <b:dataTableColumn value="#{error.mensaje}" label="Mensaje"/>
+					</b:dataTable>
 					<f:facet name="footer">
 						<b:button value="Aceptar" look="success" dismiss="modal" />
 					</f:facet>
@@ -354,9 +348,15 @@
 			</p>
 			<p>
 				<b:modal title="Error al crear empresa"
-					styleClass="modalPseudoClassCreadaError">
-					<p style="color: red">Ocurrio un error al crear la empresa</p>
-					<p style="color: red">#{empresaBean.mensajeErrorAltaEmpresa}</p>
+					styleClass="modalPseudoClassCreadaError" id="modalError">
+					<p><h5>Ocurrieron errores al crear la Empresa. A continuación están los mensajes generados</h5></p>
+					<b:dataTable value="#{empresaBean.errores}" id="listaErrores"
+					               var="error"
+					               caption="Ocurrieron errores al crear la Empresa. A continuación están los mensajes generados"
+					               >
+					    <b:dataTableColumn value="#{error.tipo}" label="Tipo Mensaje" width="100px"/>
+					    <b:dataTableColumn value="#{error.mensaje}" label="Mensaje"/>
+					</b:dataTable>
 					<f:facet name="footer">
 						<b:button value="Aceptar" look="warning" dismiss="modal" />
 					</f:facet>

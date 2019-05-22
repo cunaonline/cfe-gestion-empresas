@@ -29,8 +29,8 @@ public class Empresa {
 	private String telefono2;
 	private String ciudad = "Montevideo";
 	private String departamento = "Montevideo";
-	private Integer maxConnections = 100;
-	private Integer minConnections = 10;
+	private Integer maxConnections = 10;
+	private Integer minConnections = 3;
 	@NotBlank(message = "La versión debe estar definida")
 	private String version;
 	@NotBlank(message = "El war a usar debe estar definido")
