@@ -1,10 +1,8 @@
 package ctrl;
 
-import static ctes.Ctes.ACTUALIZACION_PASS_FTPS_PARAM_NAME;
 import static ctes.Ctes.ACTUALIZACION_USER_FTPS_PARAM_NAME;
 import static ctes.Ctes.CIUDADL_PARAM_NAME;
 import static ctes.Ctes.DEPARTAMENTO_PARAM_NAME;
-import static ctes.Ctes.HABILITAR_CFE_ENTRY_PARAM_NAME;
 import static ctes.Ctes.HOME_APP_FOLDER_PARAM_NAME;
 import static ctes.Ctes.HOME_FOLDER_PARAM_NAME;
 import static ctes.Ctes.KEYSTORE_FILENAME_PARAM_NAME;
@@ -16,22 +14,6 @@ import static ctes.Ctes.RUT_EMISOR_PARAM_NAME;
 import static ctes.Ctes.TELEFONO1_EMISOR_PARAM_NAME;
 import static ctes.Ctes.TELEFONO2_EMISOR_PARAM_NAME;
 import static ctes.Ctes.TIPO_APLICACION;
-import static ctes.Ctes.URL_RNCENTRAL_CONF_RECHAZOS_DGI_PARAM_NAME;
-import static ctes.Ctes.URL_RNCENTRAL_ENVIO_ACUSES_PARAM_NAME;
-import static ctes.Ctes.URL_RNCENTRAL_ENVIO_CONFIRMACION_ACUSES_PARAM_NAME;
-import static ctes.Ctes.URL_RNCENTRAL_ENVIO_ERRORES_PARAM_NAME;
-import static ctes.Ctes.URL_RNCENTRAL_ENVIO_SOBRES_CFE_HP_PARAM_NAME;
-import static ctes.Ctes.URL_RNCENTRAL_ENVIO_SOBRES_CFE_LP_PARAM_NAME;
-import static ctes.Ctes.URL_RNCENTRAL_ENVIO_STATUS_PARAM_NAME;
-import static ctes.Ctes.URL_RNCENTRAL_MONITOREO_PARAM_NAME;
-import static ctes.Ctes.URL_RNCENTRAL_RECEPCION_ACUSES_PARAM_NAME;
-import static ctes.Ctes.URL_RNCENTRAL_RECEPCION_RECEPTORES_ELECTRONICOS_PARAM_NAME;
-import static ctes.Ctes.URL_RNCENTRAL_RECEPCION_RECHAZOS_DGI_PARAM_NAME;
-import static ctes.Ctes.URL_RNCENTRAL_RECEPCION_SOBRES_PARAM_NAME;
-import static ctes.Ctes.URL_RNCENTRAL_RECEPCION_USUARIOS_PARAM_NAME;
-import static ctes.Ctes.URL_RNCENTRAL_VALORES_UI_PARAM_NAME;
-import static ctes.Ctes.URL_WS_CONSULTA_DGI_PARAM_NAME;
-import static ctes.Ctes.URL_WS_DGI_PARAM_NAME;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -278,42 +260,57 @@ public class ControladorEmpresa {
 			//
 			db.actualizarParametro(ACTUALIZACION_USER_FTPS_PARAM_NAME,
 					"cfeactualizador" + (this.empresa.isProduccion() ? "" : "_test") + "@gs1uy.org");
-			db.actualizarParametroPassword(ACTUALIZACION_PASS_FTPS_PARAM_NAME, (this.empresa.isProduccion() ? "" : ""));
+			// db.actualizarParametroPassword(ACTUALIZACION_PASS_FTPS_PARAM_NAME,
+			// (this.empresa.isProduccion() ? "" : ""));
+			// //
+			// // parametros para des y prod
+			// String dirUrlCentralBase = "https://cfe.rondanet.com" +
+			// (this.empresa.isProduccion() ? "" : ":5542")
+			// + "/cgi-bin/Receptor.cgi/";
+			// db.actualizarParametro(URL_RNCENTRAL_ENVIO_ACUSES_PARAM_NAME,
+			// dirUrlCentralBase + "Envio");
+			// db.actualizarParametro(URL_RNCENTRAL_ENVIO_CONFIRMACION_ACUSES_PARAM_NAME,
+			// dirUrlCentralBase + "ConfRecepcionResp");
+			// db.actualizarParametro(URL_RNCENTRAL_ENVIO_ERRORES_PARAM_NAME,
+			// dirUrlCentralBase + "Error");
+			// db.actualizarParametro(URL_RNCENTRAL_ENVIO_SOBRES_CFE_HP_PARAM_NAME,
+			// dirUrlCentralBase + "Envio");
+			// db.actualizarParametro(URL_RNCENTRAL_ENVIO_SOBRES_CFE_LP_PARAM_NAME,
+			// dirUrlCentralBase + "Envio");
 			//
-			// parametros para des y prod
-			String dirUrlCentralBase = "https://cfe.rondanet.com" + (this.empresa.isProduccion() ? "" : ":5542")
-					+ "/cgi-bin/Receptor.cgi/";
-			db.actualizarParametro(URL_RNCENTRAL_ENVIO_ACUSES_PARAM_NAME, dirUrlCentralBase + "Envio");
-			db.actualizarParametro(URL_RNCENTRAL_ENVIO_CONFIRMACION_ACUSES_PARAM_NAME,
-					dirUrlCentralBase + "ConfRecepcionResp");
-			db.actualizarParametro(URL_RNCENTRAL_ENVIO_ERRORES_PARAM_NAME, dirUrlCentralBase + "Error");
-			db.actualizarParametro(URL_RNCENTRAL_ENVIO_SOBRES_CFE_HP_PARAM_NAME, dirUrlCentralBase + "Envio");
-			db.actualizarParametro(URL_RNCENTRAL_ENVIO_SOBRES_CFE_LP_PARAM_NAME, dirUrlCentralBase + "Envio");
-
-			db.actualizarParametro(URL_RNCENTRAL_ENVIO_STATUS_PARAM_NAME, dirUrlCentralBase + "EnvioInforme");
-			db.actualizarParametro(URL_RNCENTRAL_RECEPCION_SOBRES_PARAM_NAME, dirUrlCentralBase + "BajarSobres");
-			db.actualizarParametro(URL_RNCENTRAL_RECEPCION_ACUSES_PARAM_NAME, dirUrlCentralBase + "BajarRespuestas");
-			db.actualizarParametro(URL_RNCENTRAL_RECEPCION_RECHAZOS_DGI_PARAM_NAME,
-					dirUrlCentralBase + "BajarRechazosDGI");
-			db.actualizarParametro(URL_RNCENTRAL_CONF_RECHAZOS_DGI_PARAM_NAME, dirUrlCentralBase + "ConfRecepcionRech");
-			db.actualizarParametro(URL_RNCENTRAL_RECEPCION_USUARIOS_PARAM_NAME, dirUrlCentralBase + "BajarUsuarios");
-			db.actualizarParametro(URL_RNCENTRAL_RECEPCION_RECEPTORES_ELECTRONICOS_PARAM_NAME,
-					dirUrlCentralBase + "BajarEmpresas");
-			db.actualizarParametro(URL_RNCENTRAL_MONITOREO_PARAM_NAME, dirUrlCentralBase + "EnvioInforme");
-			db.actualizarParametro(URL_RNCENTRAL_VALORES_UI_PARAM_NAME, dirUrlCentralBase + "BajarValoresUI");
-
-			// activamos por defecto el data entry
-			db.actualizarParametro(HABILITAR_CFE_ENTRY_PARAM_NAME, true);
+			// db.actualizarParametro(URL_RNCENTRAL_ENVIO_STATUS_PARAM_NAME,
+			// dirUrlCentralBase + "EnvioInforme");
+			// db.actualizarParametro(URL_RNCENTRAL_RECEPCION_SOBRES_PARAM_NAME,
+			// dirUrlCentralBase + "BajarSobres");
+			// db.actualizarParametro(URL_RNCENTRAL_RECEPCION_ACUSES_PARAM_NAME,
+			// dirUrlCentralBase + "BajarRespuestas");
+			// db.actualizarParametro(URL_RNCENTRAL_RECEPCION_RECHAZOS_DGI_PARAM_NAME,
+			// dirUrlCentralBase + "BajarRechazosDGI");
+			// db.actualizarParametro(URL_RNCENTRAL_CONF_RECHAZOS_DGI_PARAM_NAME,
+			// dirUrlCentralBase + "ConfRecepcionRech");
+			// db.actualizarParametro(URL_RNCENTRAL_RECEPCION_USUARIOS_PARAM_NAME,
+			// dirUrlCentralBase + "BajarUsuarios");
+			// db.actualizarParametro(URL_RNCENTRAL_RECEPCION_RECEPTORES_ELECTRONICOS_PARAM_NAME,
+			// dirUrlCentralBase + "BajarEmpresas");
+			// db.actualizarParametro(URL_RNCENTRAL_MONITOREO_PARAM_NAME,
+			// dirUrlCentralBase + "EnvioInforme");
+			// db.actualizarParametro(URL_RNCENTRAL_VALORES_UI_PARAM_NAME,
+			// dirUrlCentralBase + "BajarValoresUI");
 			//
-			if (this.empresa.isProduccion()) {
-				db.actualizarParametro(URL_WS_CONSULTA_DGI_PARAM_NAME,
-						"https://efactura.dgi.gub.uy:6440/efactura/ws_consultas");
-				db.actualizarParametro(URL_WS_DGI_PARAM_NAME, "https://efactura.dgi.gub.uy/efactura/ws_efactura");
-			} else {
-				db.actualizarParametro(URL_WS_CONSULTA_DGI_PARAM_NAME,
-						"https://efactura.dgi.gub.uy:6460/ePrueba/ws_consultasPrueba");
-				db.actualizarParametro(URL_WS_DGI_PARAM_NAME, "https://efactura.dgi.gub.uy:6443/ePrueba/ws_eprueba");
-			}
+			// // activamos por defecto el data entry
+			// db.actualizarParametro(HABILITAR_CFE_ENTRY_PARAM_NAME, true);
+			// //
+			// if (this.empresa.isProduccion()) {
+			// db.actualizarParametro(URL_WS_CONSULTA_DGI_PARAM_NAME,
+			// "https://efactura.dgi.gub.uy:6440/efactura/ws_consultas");
+			// db.actualizarParametro(URL_WS_DGI_PARAM_NAME,
+			// "https://efactura.dgi.gub.uy/efactura/ws_efactura");
+			// } else {
+			// db.actualizarParametro(URL_WS_CONSULTA_DGI_PARAM_NAME,
+			// "https://efactura.dgi.gub.uy:6460/ePrueba/ws_consultasPrueba");
+			// db.actualizarParametro(URL_WS_DGI_PARAM_NAME,
+			// "https://efactura.dgi.gub.uy:6443/ePrueba/ws_eprueba");
+			// }
 			db.cerrarConexion();
 			mensajes.get("INFO").add("Se parametrizó la Empresa  " + this.nombreAmbiente() + " correctamente.");
 			parametizacioCorrecta = true;
