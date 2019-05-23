@@ -307,8 +307,8 @@ public class ControladorEmpresa {
 			//
 			if (this.empresa.isProduccion()) {
 				db.actualizarParametro(URL_WS_CONSULTA_DGI_PARAM_NAME,
-						"https://efactura.dgi.gub.uy:6460/ePrueba/ws_consultasPrueba");
-				db.actualizarParametro(URL_WS_DGI_PARAM_NAME, "https://efactura.dgi.gub.uy:6443/ePrueba/ws_eprueba");
+						"https://efactura.dgi.gub.uy:6440/efactura/ws_consultas");
+				db.actualizarParametro(URL_WS_DGI_PARAM_NAME, "https://efactura.dgi.gub.uy/efactura/ws_efactura");
 			} else {
 				db.actualizarParametro(URL_WS_CONSULTA_DGI_PARAM_NAME,
 						"https://efactura.dgi.gub.uy:6460/ePrueba/ws_consultasPrueba");
