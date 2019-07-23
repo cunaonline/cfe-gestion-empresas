@@ -11,18 +11,13 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 <h:head>
 	<title>CFERondanet Alta de Empresas</title>
-	<meta name="author" content="The Author"></meta>
+	<meta name="author" content="GS1 Uruguay"></meta>
 	<link type="text/css" rel="stylesheet" href="resources/css/nuevo.css" />
 	<script src="resources/js/jquery-1.12.4.min.js" />
 </h:head>
 <h:body style="padding: 40px;">
 	<b:navBar brand="Alta Empresas" brandHref="" fixed="top" inverse="true"
 		style="background-color:navy;color:white;">
-		<!--  b:navbarLinks>
-                <b:navLink value="Home" href="#"></b:navLink>
-                <b:navLink value="About" href="#about"></b:navLink>
-                <b:navLink value="Contact" href="#contact"></b:navLink>
-            </b:navbarLinks -->
 	</b:navBar>
 	<script>
 		// variables
@@ -131,10 +126,10 @@
 				<p>
 					<b:row>
 						<b:column medium-screen="3">
-							<h:outputText value="Nombre:" class="otDescripValor" />
+							<h:outputText value="Nombre para Ruta:" class="otDescripValor" />
 						</b:column>
 						<b:column medium-screen="6">
-							<b:inputText placeholder="Nombre de la empresa"
+							<b:inputText placeholder="Ruta de la empresa"
 								value="#{empresaBean.nombre}" id="idItNombre"
 								onkeyup="ajax:empresaBean.actualizarRutas()"
 								update="itHAFolder itHFolder itLogo" ajax="true" />
@@ -144,11 +139,11 @@
 				<p>
 					<b:row>
 						<b:column medium-screen="3">
-							<h:outputText value="Razon social:" class="otDescripValor" />
+							<h:outputText value="Razón Social:" class="otDescripValor" />
 						</b:column>
 						<b:column medium-screen="6">
-							<b:inputText id="xxx" value="#{empresaBean.razonSocial}"
-								placeholder="Razon social de la empresa" ajax="true" />
+							<b:inputText id="empRazonSocial" value="#{empresaBean.razonSocial}"
+								placeholder="Razón Social de la Empresa" ajax="true" />
 						</b:column>
 					</b:row>
 				</p>
@@ -208,49 +203,67 @@
 						</b:column>
 					</b:row>
 				</p>
-				<p>
-					<b:row>
-						<b:column medium-screen="3">
-							<h:outputText value="Telefono emisor:" class="otDescripValor" />
-						</b:column>
-						<b:column medium-screen="6">
-							<b:inputText placeholder="Telefono nº1 (opcional)"
-								value="#{empresaBean.telefono1}" />
-						</b:column>
-					</b:row>
-				</p>
-				<p>
-					<b:row>
-						<b:column medium-screen="3">
-							<h:outputText value="Telefono emisor (2):" class="otDescripValor" />
-						</b:column>
-						<b:column medium-screen="6">
-							<b:inputText placeholder="Telefono nº2 (opcional)"
-								value="#{empresaBean.telefono2}" />
-						</b:column>
-					</b:row>
-				</p>
-				<p>
-					<b:row>
-						<b:column medium-screen="3">
-							<h:outputText value="Ciudad:" class="otDescripValor" />
-						</b:column>
-						<b:column medium-screen="6">
-							<b:inputText placeholder="Ciudad" value="#{empresaBean.ciudad}" />
-						</b:column>
-					</b:row>
-				</p>
-				<p>
-					<b:row>
-						<b:column medium-screen="3">
-							<h:outputText value="Departamento:" class="otDescripValor" />
-						</b:column>
-						<b:column medium-screen="6">
-							<b:inputText id="itDepartamento" placeholder="Departamento"
-								value="#{empresaBean.departamento}" />
-						</b:column>
-					</b:row>
-				</p>
+				<b:container layout="fluid">
+					<b:panel title="Datos Opcionales" look="primary" collapsed="true">
+											<b:row>
+							<b:column medium-screen="3">
+								<h:outputText value="Listado Emisores:" class="otDescripValor" />
+							</b:column>
+							<b:column medium-screen="6">
+							 <b:selectOneMenu value="#{empresaBean.emisorSeleccionado}">
+						        <f:selectItem itemValue="-1" itemLabel="-- Emisor --" />
+						        <f:selectItems  value="#{empresaBean.emisores.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}"  />
+    						</b:selectOneMenu>
+							</b:column>
+						</b:row>
+						<b:row>
+							<b:column medium-screen="3">
+								<h:outputText value="Nombre Comercial:" class="otDescripValor" />
+							</b:column>
+							<b:column medium-screen="6">
+								<b:inputText placeholder="Nombre Comercial Empresa"
+									value="#{empresaBean.nombreComercial}" id="idItNombreComercial" />
+							</b:column>
+						</b:row>
+						<b:row>
+							<b:column medium-screen="3">
+								<h:outputText value="Telefono emisor:" class="otDescripValor" />
+							</b:column>
+							<b:column medium-screen="6">
+								<b:inputText placeholder="Telefono nº1 (opcional)"
+									value="#{empresaBean.telefono1}" />
+							</b:column>
+						</b:row>
+						<b:row>
+							<b:column medium-screen="3">
+								<h:outputText value="Telefono emisor (2):"
+									class="otDescripValor" />
+							</b:column>
+							<b:column medium-screen="6">
+								<b:inputText placeholder="Telefono nº2 (opcional)"
+									value="#{empresaBean.telefono2}" />
+							</b:column>
+						</b:row>
+						<b:row>
+							<b:column medium-screen="3">
+								<h:outputText value="Ciudad:" class="otDescripValor" />
+							</b:column>
+							<b:column medium-screen="6">
+								<b:inputText placeholder="Ciudad" value="#{empresaBean.ciudad}" />
+							</b:column>
+						</b:row>
+						<b:row>
+							<b:column medium-screen="3">
+								<h:outputText value="Departamento:" class="otDescripValor" />
+							</b:column>
+							<b:column medium-screen="6">
+								<b:inputText id="itDepartamento" placeholder="Departamento"
+									value="#{empresaBean.departamento}" />
+							</b:column>
+						</b:row>
+
+					</b:panel>
+				</b:container>
 			</b:jumbotron>
 			<b:jumbotron>
 				<p class="h3">Estructura de Carpetas</p>
@@ -263,6 +276,7 @@
 						</b:column>
 						<b:column medium-screen="6">
 							<b:inputText id="itHFolder" placeholder="Directorio Home"
+								disabled="#{empresaBean.getNombre().length() != 0}"
 								ajax="true" value="#{empresaBean.homeFolder}" />
 						</b:column>
 					</b:row>
@@ -274,7 +288,7 @@
 						</b:column>
 						<b:column medium-screen="6">
 							<b:inputText id="itHAFolder" placeholder="Directorio Home" 
-								disabled="#{empresaBean.getNombre().length() == 0}"
+								disabled="#{empresaBean.getNombre().length() != 0}"
 								value="#{empresaBean.homeAppFolder}" />
 						</b:column>
 					</b:row>

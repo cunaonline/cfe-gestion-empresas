@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -46,6 +47,7 @@ public class EmpresasBean implements Serializable {
 	private boolean agregadaEmpresa = false;
 
 	private String nombre = null;
+	private String nombreComercial = null;
 	private String rut = null;
 	private String passwordRNC = null;
 	private String passwordRNC2 = null;
@@ -69,6 +71,9 @@ public class EmpresasBean implements Serializable {
 	private List<SelectItem> warsDisponibles;
 	private ControladorEmpresa ctrlEmpresa;
 
+	private HashMap<String, String> emisores = new HashMap<String, String>();
+	private String emisorSeleccionado;
+
 	public EmpresasBean() {
 		ctrlEmpresa = new ControladorEmpresa();
 
@@ -91,19 +96,26 @@ public class EmpresasBean implements Serializable {
 		for (String auxWarName : directorios) {
 			warsDisponibles.add(new SelectItem(auxWarName, auxWarName.substring(0, auxWarName.length() - 4)));
 		}
+		this.emisores = ctrlEmpresa.getEmisores();
 		actualizarCtrl();
 
 	}
 
 	public void actualizarCtrl() {
-		Empresa empresa = new Empresa(nombre, rut, passwordRNC, homeFolder, homeAppFolder, produccion, razonSocial,
-				keystoreFile, logo, telefono1, telefono2, ciudad, departamento, maxConnections, minConnections, version,
-				war);
+		Empresa empresa = new Empresa(nombre, nombreComercial, rut, passwordRNC, homeFolder, homeAppFolder, produccion,
+				razonSocial, keystoreFile, logo, telefono1, telefono2, ciudad, departamento, maxConnections,
+				minConnections, version, war,
+				(this.emisorSeleccionado == null || this.emisorSeleccionado.equals("-1")) ? null
+						: this.emisorSeleccionado);
 		this.ctrlEmpresa.setEmpresa(empresa);
 	}
 
 	public String getNombre() {
 		return nombre;
+	}
+
+	public String getNombreComercial() {
+		return nombreComercial;
 	}
 
 	public String getRut() {
@@ -124,6 +136,10 @@ public class EmpresasBean implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public void setNombreComercial(String nombreComercial) {
+		this.nombreComercial = nombreComercial;
 	}
 
 	public void setRut(String rut) {
@@ -312,6 +328,7 @@ public class EmpresasBean implements Serializable {
 
 	private void limpiarDatos() {
 		nombre = null;
+		nombreComercial = null;
 		rut = null;
 		passwordRNC = null;
 		passwordRNC2 = null;
@@ -426,4 +443,21 @@ public class EmpresasBean implements Serializable {
 							+ e.getMessage()));
 		}
 	}
+
+	public HashMap<String, String> getEmisores() {
+		return emisores;
+	}
+
+	public void setEmisores(HashMap<String, String> emisores) {
+		this.emisores = emisores;
+	}
+
+	public String getEmisorSeleccionado() {
+		return emisorSeleccionado;
+	}
+
+	public void setEmisorSeleccionado(String emisorSeleccionado) {
+		this.emisorSeleccionado = emisorSeleccionado;
+	}
+
 }

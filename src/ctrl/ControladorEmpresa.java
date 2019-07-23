@@ -50,6 +50,9 @@ public class ControladorEmpresa {
 	private Empresa empresa = null;
 	HashMap<String, ArrayList<String>> mensajes = new HashMap<String, ArrayList<String>>();
 
+	private HashMap<String, String> emisores = new HashMap<String, String>();
+	private String emisorSeleccionado = null;
+
 	public ControladorEmpresa() {
 		super();
 		this.iniciarValidador();
@@ -83,6 +86,7 @@ public class ControladorEmpresa {
 			ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 			this.validator = factory.getValidator();
 		}
+		this.emisores = Configuration.getInstance().getEmisores();
 	}
 
 	public Set<ConstraintViolation<Empresa>> validarDatos() {
@@ -228,7 +232,7 @@ public class ControladorEmpresa {
 				// TODO: handle exception
 			}
 			mensajes.get("ERROR").add("Scripts para versión " + this.empresa.getVersion() + " en ambiente "
-					+ this.nombreAmbiente() + " no fué ejecutado.");
+					+ this.nombreAmbiente() + " no fué ejecutado. Excepción: " + e.getMessage());
 		}
 		return scriptsEjecutados;
 	}
@@ -238,6 +242,9 @@ public class ControladorEmpresa {
 		DataBaseManager db = new DataBaseManager();
 		try {
 			db.conectar("/" + this.nombreAmbiente());
+			if (this.empresa.getIdEmisor() != null) {
+				db.insertarEmisor(this.empresa.getIdEmisor(), this.getEmisores().get(this.empresa.getIdEmisor()));
+			}
 			db.actualizarParametro(RAZON_SOCIALL_PARAM_NAME, this.empresa.getRazonSocial());
 			db.actualizarParametro(CIUDADL_PARAM_NAME, this.empresa.getCiudad());
 			db.actualizarParametro(DEPARTAMENTO_PARAM_NAME, this.empresa.getDepartamento());
@@ -245,7 +252,7 @@ public class ControladorEmpresa {
 					this.empresa.getTelefono1() != null ? this.empresa.getTelefono1() : "");
 			db.actualizarParametro(TELEFONO2_EMISOR_PARAM_NAME,
 					this.empresa.getTelefono2() != null ? this.empresa.getTelefono2() : "");
-			db.actualizarParametro(NOMBRE_EMPRESA_PARAM_NAME, this.empresa.getNombre());
+			db.actualizarParametro(NOMBRE_EMPRESA_PARAM_NAME, this.empresa.getNombreComercial());
 			db.actualizarParametro(RUT_EMISOR_PARAM_NAME, this.empresa.getRut());
 			//
 			db.actualizarParametro(HOME_FOLDER_PARAM_NAME, this.empresa.getHomeFolder());
@@ -595,6 +602,22 @@ public class ControladorEmpresa {
 		}
 
 		return empresaAgregadaPersistence;
+	}
+
+	public HashMap<String, String> getEmisores() {
+		return emisores;
+	}
+
+	public void setEmisores(HashMap<String, String> emisores) {
+		this.emisores = emisores;
+	}
+
+	public String getEmisorSeleccionado() {
+		return emisorSeleccionado;
+	}
+
+	public void setEmisorSeleccionado(String emisorSeleccionado) {
+		this.emisorSeleccionado = emisorSeleccionado;
 	}
 
 }

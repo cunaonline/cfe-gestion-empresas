@@ -49,8 +49,7 @@ public class DataBaseManager {
 	 * Abre una conexion a la base de datos db.<br>
 	 * se
 	 * 
-	 * @param db
-	 *            el nombre de la base de datos
+	 * @param db el nombre de la base de datos
 	 * @throws Exception
 	 */
 	public void conectar(String db) throws Exception {
@@ -72,10 +71,10 @@ public class DataBaseManager {
 			// Crea la base de datos
 			stmt = conn.prepareStatement("CREATE DATABASE " + nombreBase + "  WITH OWNER = rnlocal "
 					+ "       ENCODING = 'UTF8' " + "       TABLESPACE = pg_default "
-					+ (isWindows ? "       LC_COLLATE = 'English_United States.1252' "
-							: "       LC_COLLATE = 'en_US.UTF-8' ")
-					+ (isWindows ? "       LC_CTYPE = 'English_United States.1252' "
-							: "       LC_CTYPE = 'en_US.UTF-8' ")
+					+ (isWindows ? "       LC_COLLATE = '" + Configuration.getInstance().getDbWindowsCollate() + "' "
+							: "       LC_COLLATE = '" + Configuration.getInstance().getDbLinuxCollate() + "' ")
+					+ (isWindows ? "       LC_CTYPE = '" + Configuration.getInstance().getDbWindowsCollate() + "'"
+							: "       LC_CTYPE = '" + Configuration.getInstance().getDbLinuxCollate() + "' ")
 					+ "       CONNECTION LIMIT = -1");
 			// stmt.setString(1, nombreBase);
 			stmt.executeUpdate();
@@ -182,6 +181,17 @@ public class DataBaseManager {
 		}
 	}
 
+	public void insertarEmisor(String idEmisor, String nombreEmisor) throws SQLException {
+		if (idEmisor == null || nombreEmisor == null)
+			return;
+		PreparedStatement stmt = null;
+		conn.setAutoCommit(true);
+		stmt = conn.prepareStatement("INSERT INTO emisores_ctrl_rd (id_emisor,emisor) VALUES (?,?)");
+		stmt.setInt(1, Integer.parseInt(idEmisor));
+		stmt.setString(2, nombreEmisor);
+		stmt.executeUpdate();
+	}
+
 	public void actualizarParametro(String nomParam, String valParm) throws SQLException {
 		PreparedStatement stmt = null;
 		conn.setAutoCommit(true);
@@ -249,11 +259,11 @@ public class DataBaseManager {
 
 	public static void main(String[] args) throws Exception {
 		/*
-		 * * DataBaseManager db = new DataBaseManager(); db.conectar();
-		 * db.crearBase( "test_automatico_v520" ); System.out.println(
-		 * "base creada" ); db.cerrarConexion(); db.conectar(
-		 * "/test_automatico_v520" ); db.ejecutarStriptsBase( "5.2.0" );
-		 * System.out.println( "tablas creadas" ); db.cerrarConexion(); /*
+		 * * DataBaseManager db = new DataBaseManager(); db.conectar(); db.crearBase(
+		 * "test_automatico_v520" ); System.out.println( "base creada" );
+		 * db.cerrarConexion(); db.conectar( "/test_automatico_v520" );
+		 * db.ejecutarStriptsBase( "5.2.0" ); System.out.println( "tablas creadas" );
+		 * db.cerrarConexion(); /*
 		 */
 		String SEP = java.io.File.separator;
 		String logo = "rondanet\\algo\\logo.png";

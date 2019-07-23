@@ -6,8 +6,10 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 public class Empresa {
+	/* Nombre para Ruta */
 	@NotBlank(message = "El nombre no debe ser vacío")
 	private String nombre;
+	private String nombreComercial;
 	@NotBlank(message = "El RUT no debe ser vacío")
 	@Digits(message = "El RUT debe estar compuesto dígitos", fraction = 0, integer = 12)
 	private String rut;
@@ -35,13 +37,15 @@ public class Empresa {
 	private String version;
 	@NotBlank(message = "El war a usar debe estar definido")
 	private String war;
+	private String idEmisor;
 
-	public Empresa(String nombre, String rut, String passwordRNC, String homeFolder, String homeAppFolder,
-			boolean produccion, String razonSocial, String keystoreFile, String logo, String telefono1,
-			String telefono2, String ciudad, String departamento, Integer maxConnections, Integer minConnections,
-			String version, String war) {
+	public Empresa(String nombre, String nombreComercial, String rut, String passwordRNC, String homeFolder,
+			String homeAppFolder, boolean produccion, String razonSocial, String keystoreFile, String logo,
+			String telefono1, String telefono2, String ciudad, String departamento, Integer maxConnections,
+			Integer minConnections, String version, String war, String idEmisor) {
 		super();
 		this.nombre = nombre;
+		this.nombreComercial = nombreComercial;
 		this.rut = rut;
 		this.passwordRNC = passwordRNC;
 		this.homeFolder = homeFolder;
@@ -58,6 +62,7 @@ public class Empresa {
 		this.minConnections = minConnections;
 		this.version = version;
 		this.war = war;
+		this.idEmisor = idEmisor;
 	}
 
 	public String getNombre() {
@@ -194,6 +199,22 @@ public class Empresa {
 
 	public void setWar(String war) {
 		this.war = war;
+	}
+
+	public String getNombreComercial() {
+		return nombreComercial;
+	}
+
+	public void setNombreComercial(String nombreComercial) {
+		this.nombreComercial = nombreComercial;
+	}
+
+	public String getIdEmisor() {
+		return idEmisor;
+	}
+
+	public void setIdEmisor(String idEmisor) {
+		this.idEmisor = idEmisor;
 	}
 
 }

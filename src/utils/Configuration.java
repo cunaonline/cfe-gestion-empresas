@@ -33,9 +33,13 @@ public class Configuration {
 	private String dbUrl = "";
 	private String dbUser = "";
 	private String dbPass = "";
+	private String dbWindowsCollate = "English_United States.1252";
+	private String dbLinuxCollate = "en_US.UTF-8";
 
 	private String auxEmpresasXml;
 	private String auxPersistenceXml;
+
+	private HashMap<String, String> emisores = new HashMap<String, String>();
 
 	private String logsFolder;
 
@@ -72,10 +76,23 @@ public class Configuration {
 			dbUrl = props.getProperty("database.url");
 			dbUser = props.getProperty("database.user");
 			dbPass = props.getProperty("database.pass");
+			dbWindowsCollate = props.getProperty("database.windows.collate", dbWindowsCollate);
+			dbLinuxCollate = props.getProperty("database.linux.collate", dbLinuxCollate);
 			//
 			isLinux = props.getProperty("os").equals("linux");
 			isLinuxDB = props.getProperty("database.linux") != null ? props.getProperty("database.linux").equals("true")
 					: false;
+
+			String[] tmpArrayEmisores = props.getProperty("emisores", "").split(",");
+
+			for (int i = 0; i < tmpArrayEmisores.length; i++) {
+				try {
+					String key = tmpArrayEmisores[i].split(":")[0];
+					String value = tmpArrayEmisores[i].split(":")[1];
+					emisores.put(key, value);
+				} catch (Exception e) {
+				}
+			}
 
 			logsFolder = props.getProperty("app.logs") != null ? props.getProperty("app.logs") : "";
 		} catch (IOException e) {
@@ -175,6 +192,30 @@ public class Configuration {
 
 	public void setPersistenceFolder(String persistenceFolder) {
 		this.persistenceFolder = persistenceFolder;
+	}
+
+	public HashMap<String, String> getEmisores() {
+		return emisores;
+	}
+
+	public void setEmisores(HashMap<String, String> emisores) {
+		this.emisores = emisores;
+	}
+
+	public String getDbWindowsCollate() {
+		return dbWindowsCollate;
+	}
+
+	public void setDbWindowsCollate(String dbWindowsCollate) {
+		this.dbWindowsCollate = dbWindowsCollate;
+	}
+
+	public String getDbLinuxCollate() {
+		return dbLinuxCollate;
+	}
+
+	public void setDbLinuxCollate(String dbLinuxCollate) {
+		this.dbLinuxCollate = dbLinuxCollate;
 	}
 
 }
