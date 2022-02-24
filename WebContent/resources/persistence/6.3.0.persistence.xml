@@ -1,0 +1,45 @@
+<persistence-unit name="templatePU" transaction-type="RESOURCE_LOCAL">
+	  	<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		
+	  	<non-jta-data-source>java:jboss/datasources/templateDS</non-jta-data-source>	
+
+	  	<class>org.gs1uy.rondanetweb.domain.Parametro</class>
+	  	<class>org.gs1uy.rondanetweb.domain.Acuse</class>
+	  	<class>org.gs1uy.rondanetweb.domain.Cae</class>
+	  	<class>org.gs1uy.rondanetweb.domain.Alarma</class>
+	  	<class>org.gs1uy.rondanetweb.domain.CaeAsignado</class>
+	  	<class>org.gs1uy.rondanetweb.domain.CaeAsignadoXML</class>
+	  	<class>org.gs1uy.rondanetweb.domain.PDFComprobante</class>	  	
+	  	<class>org.gs1uy.rondanetweb.domain.Comprobante</class>
+	  	<class>org.gs1uy.rondanetweb.domain.DetalleAcuse</class>
+	  	<class>org.gs1uy.rondanetweb.domain.EmisorControlRd</class>
+	  	<class>org.gs1uy.rondanetweb.domain.Impresora</class>
+	  	<class>org.gs1uy.rondanetweb.domain.Lote</class>
+	  	<class>org.gs1uy.rondanetweb.domain.NumeroAsignado</class>
+	  	<class>org.gs1uy.rondanetweb.domain.RangoComprobantesAnulados</class>
+	  	<class>org.gs1uy.rondanetweb.domain.ReceptorCae</class>
+	  	<class>org.gs1uy.rondanetweb.domain.ReceptorElectronico</class>
+	  	<class>org.gs1uy.rondanetweb.domain.ReporteDiario</class>
+	  	<class>org.gs1uy.rondanetweb.domain.Sobre</class>
+	  	<class>org.gs1uy.rondanetweb.domain.TipoComprobante</class>
+	  	<class>org.gs1uy.rondanetweb.domain.UserLog</class>
+	  	<class>org.gs1uy.rondanetweb.domain.Usuario</class>
+	  	<class>org.gs1uy.rondanetweb.domain.RetencionPercepcion</class>
+	  	<class>org.gs1uy.rondanetweb.domain.RetPerPK</class>
+	  	<class>org.gs1uy.rondanetweb.domain.TipoAlarma</class>
+	  	<class>org.gs1uy.rondanetweb.domain.ValorUI</class>	  	
+	  	<class>org.gs1uy.rondanetweb.publicacion.ComprobantePublicado</class>
+	  	<class>org.gs1uy.rondanetweb.domain.Cliente</class>
+	  	<class>org.gs1uy.rondanetweb.domain.Sucursal</class>
+	  	<class>org.gs1uy.rondanetweb.domain.ProductoServicio</class>
+	  	<class>org.gs1uy.rondanetweb.domain.PrecioProducto</class>
+	  	<class>org.gs1uy.rondanetweb.domain.ListaPrecios</class>
+	  	<class>org.gs1uy.rondanetweb.domain.CondicionEnvio</class>
+	  	<class>org.gs1uy.rondanetweb.domain.CondicionPago</class>
+	  	<class>org.gs1uy.rondanetweb.domain.PaqueteMensual</class>
+	  	<class>org.gs1uy.rondanetweb.domain.StockMinimoReceptor</class>
+	  	<class>org.gs1uy.rondanetweb.domain.MedioDePago</class>
+		<properties>
+			<property name = "hibernate.show_sql" value = "false" />
+		</properties>	  	
+	</persistence-unit>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubReportSucFecDetalles" pageWidth="555" pageHeight="56" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="0.9313819845887324"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="totMntRetenido" class="java.lang.String"/>
+	<parameter name="totMntIVATasaBas" class="java.lang.String"/>
+	<parameter name="totMntIVAenSusp" class="java.lang.String"/>
+	<parameter name="totMntExpyAsim" class="java.lang.String"/>
+	<parameter name="totMntNoGrv" class="java.lang.String"/>
+	<parameter name="totMntIVAOtra" class="java.lang.String"/>
+	<parameter name="totMntIVATasaMin" class="java.lang.String"/>
+	<parameter name="totMntImpPerc" class="java.lang.String"/>
+	<parameter name="totMntTotal" class="java.lang.String"/>
+	<detail>
+		<band height="56" splitType="Stretch">
+			<textField>
+				<reportElement x="117" y="41" width="111" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totMntIVATasaMin}!=null && !$P{totMntIVATasaMin}.equals("")?
+$P{totMntIVATasaMin}:"0,00"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="228" y="29" width="114" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tot. Imp. Per.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="228" y="12" width="114" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totMntIVAenSusp}!=null && !$P{totMntIVAenSusp}.equals("")?
+$P{totMntIVAenSusp}:"0,00"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="450" y="0" width="103" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tot. No Grav.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="117" y="29" width="111" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tot. IVA min.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="0" width="113" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total retenido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="117" y="0" width="111" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tot. IVA bas.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="4" y="41" width="112" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totMntIVAOtra}!=null && !$P{totMntIVAOtra}.equals("")?
+$P{totMntIVAOtra}:"0,00"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="117" y="12" width="111" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totMntIVATasaBas}!=null && !$P{totMntIVATasaBas}.equals("")?
+$P{totMntIVATasaBas}:"0,00"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="342" y="29" width="108" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="29" width="112" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tot. IVA otra]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="450" y="12" width="103" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totMntNoGrv}!=null && !$P{totMntNoGrv}.equals("")?
+$P{totMntNoGrv}:"0,00"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="342" y="0" width="108" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tot. Exp. y Asim.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="228" y="41" width="114" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totMntImpPerc}!=null && !$P{totMntImpPerc}.equals("")?
+$P{totMntImpPerc}:"0,00"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="228" y="0" width="114" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tot. IVA en Sus.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="4" y="12" width="113" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totMntRetenido}!=null && !$P{totMntRetenido}.equals("")?
+$P{totMntRetenido}:"0,00"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="342" y="41" width="108" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totMntTotal}!=null && !$P{totMntTotal}.equals("")?
+$P{totMntTotal}:"0,00"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="342" y="12" width="108" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totMntExpyAsim}!=null && !$P{totMntExpyAsim}.equals("")?
+$P{totMntExpyAsim}:"0,00"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

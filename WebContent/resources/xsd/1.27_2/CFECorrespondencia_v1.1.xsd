@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Correspondencia - GS1 FUA: 18/06/13 -->
+<xs:schema attributeFormDefault="unqualified"
+	elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="CorrespondenciasNrosComp">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="CFE" maxOccurs="unbounded" minOccurs="0">
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="xs:string">
+								<xs:attribute name="nroDGI" use="required">
+									<xs:simpleType>
+										<xs:restriction base="xs:integer">
+											<xs:minInclusive value="0" />
+											<xs:maxInclusive value="9999999" />
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:attribute>
+								<xs:attribute name="nroEmpresa" use="required">
+									<xs:simpleType>
+										<xs:restriction base="xs:integer">
+											<xs:minInclusive value="0" />
+											<xs:maxInclusive value="9999999" />
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:attribute>
+								<xs:attribute name="serieDGI" use="required">
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:minLength value="1" />
+											<xs:maxLength value="2" />
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:attribute>
+								<xs:attribute type="xs:string" name="serieEmpresa"
+									use="required" />
+								<xs:attribute name="tipoCFE" use="required">
+									<xs:simpleType>
+										<xs:restriction base="xs:short">
+											<xs:enumeration value="101" />
+											<xs:enumeration value="102" />
+											<xs:enumeration value="103" />
+											<xs:enumeration value="111" />
+											<xs:enumeration value="112" />
+											<xs:enumeration value="113" />
+											<xs:enumeration value="181" />
+											<xs:enumeration value="182" />
+											<xs:enumeration value="201" />
+											<xs:enumeration value="202" />
+											<xs:enumeration value="203" />
+											<xs:enumeration value="211" />
+											<xs:enumeration value="212" />
+											<xs:enumeration value="213" />
+											<xs:enumeration value="281" />
+											<xs:enumeration value="282" />
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:attribute>
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute type="xs:float" name="version" />
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

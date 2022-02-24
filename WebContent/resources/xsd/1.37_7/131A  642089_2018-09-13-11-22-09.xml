@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns0:CFE_Adenda xmlns:ns0="http://cfe.dgi.gub.uy"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://cfe.dgi.gub.uy CFEEmpresas.xsd">
+	<ns0:CFE xmlns:ns0="http://cfe.dgi.gub.uy" version="1.0">
+		<ns0:eTck>
+			<ns0:TmstFirma>2018-09-13T23:17:48-02:00</ns0:TmstFirma>
+			<ns0:Encabezado>
+				<ns0:IdDoc>
+					<ns0:TipoCFE>131</ns0:TipoCFE>
+					<ns0:Serie>A</ns0:Serie>
+					<ns0:Nro>642089</ns0:Nro>
+					<ns0:FchEmis>2018-09-13</ns0:FchEmis>
+					<ns0:FmaPago>1</ns0:FmaPago>
+				</ns0:IdDoc>
+				<ns0:Emisor>
+					<ns0:RUCEmisor>212422000015</ns0:RUCEmisor>
+					<ns0:RznSoc>COMISION ADMINISTRADORA PUNTA CARRETAS SHOPPING CENTER
+						S.A.</ns0:RznSoc>
+					<ns0:NomComercial>Punta Carretas Shopping</ns0:NomComercial>
+					<ns0:Telefono>2711-6940</ns0:Telefono>
+					<ns0:CorreoEmisor>administracion@puntacarretas.com.uy</ns0:CorreoEmisor>
+					<ns0:CdgDGISucur>1</ns0:CdgDGISucur>
+					<ns0:DomFiscal>Jose Ellauri 350</ns0:DomFiscal>
+					<ns0:Ciudad>Montevideo</ns0:Ciudad>
+					<ns0:Departamento>Montevideo</ns0:Departamento>
+				</ns0:Emisor>
+				<ns0:Totales>
+					<ns0:TpoMoneda>UYU</ns0:TpoMoneda>
+					<ns0:MntNoGrv>0</ns0:MntNoGrv>
+					<ns0:MntNetoIVATasaBasica>0.00</ns0:MntNetoIVATasaBasica>
+					<ns0:IVATasaMin>10</ns0:IVATasaMin>
+					<ns0:IVATasaBasica>22</ns0:IVATasaBasica>
+					<ns0:MntIVATasaBasica>0.00</ns0:MntIVATasaBasica>
+					<ns0:MntTotal>0.00</ns0:MntTotal>
+					<ns0:CantLinDet>1</ns0:CantLinDet>
+					<ns0:MontoNF>0</ns0:MontoNF>
+					<ns0:MntPagar>0.00</ns0:MntPagar>
+				</ns0:Totales>
+			</ns0:Encabezado>
+			<ns0:Detalle>
+				<ns0:Item>
+					<ns0:NroLinDet>1</ns0:NroLinDet>
+					<ns0:IndFact>5</ns0:IndFact>
+					<ns0:NomItem>PARKING</ns0:NomItem>
+					<ns0:Cantidad>1</ns0:Cantidad>
+					<ns0:UniMed>N/A</ns0:UniMed>
+					<ns0:PrecioUnitario>0.00</ns0:PrecioUnitario>
+					<ns0:MontoItem>0.00</ns0:MontoItem>
+				</ns0:Item>
+			</ns0:Detalle>
+			<ns0:CAEData>
+				<ns0:CAE_ID>90170185872</ns0:CAE_ID>
+				<ns0:DNro>508750</ns0:DNro>
+				<ns0:HNro>700100</ns0:HNro>
+				<ns0:FecVenc>2019-06-09</ns0:FecVenc>
+			</ns0:CAEData>
+			<ns0:Compl_Fiscal>
+				<ns0:Compl_Fiscal_Data>
+					<ns0:RUCEmisor>212422000015</ns0:RUCEmisor>
+					<ns0:TipoDocMdte>2</ns0:TipoDocMdte>
+					<ns0:Pais>UY</ns0:Pais>
+					<ns0:DocMdte>211476440015</ns0:DocMdte>
+					<ns0:NombreMdte>ALIAN S.A.</ns0:NombreMdte>
+				</ns0:Compl_Fiscal_Data>
+			</ns0:Compl_Fiscal>
+		</ns0:eTck>
+		<Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+			<SignedInfo>
+				<CanonicalizationMethod
+					Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+				<SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+				<Reference URI="">
+					<Transforms>
+						<Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+						<Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+					</Transforms>
+					<DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+					<DigestValue>enQMxOIoSmVetGSO8kJdVOTMPDY=</DigestValue>
+				</Reference>
+			</SignedInfo>
+			<SignatureValue>RB2lfvHGY2My3UgrHxMgTqsQ8qle0cnEz278eBTrMszsXmDx99n6S75maBAs4qmwvd01ovAalZ9jvVXieGfcf5uZHP+JN0QWHC8rLzYTWZK282jB+nKEjVgTxzM/wHPj9Zfamkp1oV/E4poJn5pc7WVOXAGcUiyf0WuFjlnR1f9z0KNd6JxZ5Sc2MyGT7dN9pJnqsDBHEw84j5RQSaxYkleEMUUxUGRpE3S1R8DDwEDJErO2uwLvM/Z5TWFvzVMBPAg4bZhJl5S5C3aaEZ5aoWLqFlPZ1050gktw8ci6B+TWM6ZMaU3CxqBP2MlYf4qieKPvklrygnBl7V1Myfb0zw==</SignatureValue>
+			<KeyInfo>
+				<X509Data>
+					<X509IssuerSerial>
+						<X509IssuerName>C=UY, L=Montevideo, O=Abitab S.A., OU=ID digital, CN=Abitab</X509IssuerName>
+						<X509SerialNumber>21730779020829604860211367755640086673872642532</X509SerialNumber>
+					</X509IssuerSerial>
+					<X509Certificate>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</X509Certificate>
+				</X509Data>
+			</KeyInfo>
+		</Signature>
+	</ns0:CFE>
+	<ns0:Adenda>
+		<ns0:Rondanet>
+			<ns0:A01>
+				<ns0:Numerar>0</ns0:Numerar>
+				<ns0:Firmar>0</ns0:Firmar>
+			</ns0:A01>
+			<ns0:A03>
+				<ns0:TextoAImprimir>
+					<ns0:ZonaImpresion Zona="1">
+						<ns0:LineaTexto />
+						<ns0:LineaTexto>Caja: 30</ns0:LineaTexto>
+						<ns0:LineaTexto>Usuario: FMETELICO</ns0:LineaTexto>
+						<ns0:LineaTexto>VENDA :PARKING</ns0:LineaTexto>
+						<ns0:LineaTexto>Fecha: 13/09/2018 23:17:48</ns0:LineaTexto>
+					</ns0:ZonaImpresion>
+				</ns0:TextoAImprimir>
+			</ns0:A03>
+		</ns0:Rondanet>
+	</ns0:Adenda>
+</ns0:CFE_Adenda>

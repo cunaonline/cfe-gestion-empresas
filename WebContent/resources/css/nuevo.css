@@ -1,0 +1,36 @@
+/* para todos los elementos */
+* {
+	/* background-color: lightcyan */
+	
+}
+
+.cssErrorMsg {
+	background-color: red;
+}
+
+.otDescripValor {
+	text-align: left;
+	color: black;
+	font-family: Calibri, Verdana, Arial;
+	font-size: 1.200em;
+}
+
+.rbAmbiente {
+	text-align: left;
+	color: black;
+	font-family: Calibri, Verdana, Arial;
+	font-size: 1.40em;
+}
+
+/* el titulo */
+.h3 {
+	font-family: Calibri;
+	font-size: 2.000em;
+}
+
+/* el subititulo */
+.h4 {
+	font-family: Arial;
+	font-size: 1.500em;
+	margin-bottom: 8px;
+}

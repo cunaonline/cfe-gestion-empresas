@@ -1,0 +1,383 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+<h:head>
+	<title>CFERondanet Alta de Empresas</title>
+	<meta name="author" content="GS1 Uruguay"></meta>
+	<link type="text/css" rel="stylesheet" href="resources/css/nuevo.css" />
+	<script src="resources/js/jquery-1.12.4.min.js" />
+</h:head>
+<h:body style="padding: 40px;">
+	<b:navBar brand="Alta Empresas" brandHref="" fixed="top" inverse="true"
+		style="background-color:navy;color:white;">
+	</b:navBar>
+	<script>
+		// variables
+		var confimarCrear = false;
+		// on load
+  	 	window.onload = function() {
+  	 	}
+  	 	
+   	 	function redirigir() {
+	   		// $('#loginForm:hdnBtnRedirect').click(); // no funcionaba xq no estaba JQueryMin
+	   	    var elem = document.getElementById("loginForm:hdnBtnRedirect");
+	   	    elem.click();
+   	   	}
+
+   	 	function mostrarTareas() {
+	   		// $('.modalPseudoClass').modal('hide');
+	   		$('.modalPseudoClass').on('show.bs.modal', function () { 
+  	 			redirigir();
+  	 		});
+	   		$('.modalPseudoClass').modal();
+		}
+
+	   	function ocultarFinalizado( creadaOK ) {
+		   	//
+	   		$('.modal.in').modal('hide');
+	   		$('.modalPseudoClass').modal('hide');
+	   		
+	   		if ( creadaOK ) {
+		   		$('.modalPseudoClassCreada').on('hidden.bs.modal', function () { 
+		   			location.reload();
+	  	 		});
+		   		$('.modalPseudoClassCreada').modal();
+	   		} else {
+	   			$('.modalPseudoClassCreadaError').on('hidden.bs.modal', function () { 
+		   			location.reload();
+	  	 		});
+		   		$('.modalPseudoClassCreadaError').modal();
+		   	}
+		}
+
+
+		function confirmarCreado() {
+			confimarCrear = true;
+		}
+
+		function isConfirmarCreado() {
+			return confimarCrear;
+		}
+
+	</script>
+	<h:form id="loginForm">
+		<b:container>
+			<b:jumbotron>
+				<p class="h3">Ambiente</p>
+				<p class="h4">Seleccionar el ambiente donde instalar la
+					aplicacion, y la version para la estructura de la base</p>
+				<p>
+					<b:row>
+						<b:column medium-screen="3">
+							<h:outputText value="Ambiente:" class="otDescripValor" />
+						</b:column>
+						<b:column medium-screen="6">
+							<b:panelGrid size="md" columns="2">
+								<b:radiobutton value="#{empresaBean.produccion}"
+									itemLabel="Desarrollo" itemValue="false" class="rbAmbiente" onclick="ajax:empresaBean.actualizarRutas()"
+								update="itHAFolder itHFolder itLogo" ajax="true"/>
+								<b:radiobutton value="#{empresaBean.produccion}"
+									itemLabel="Produccion" itemValue="true" class="rbAmbiente" onclick="ajax:empresaBean.actualizarRutas()"
+								update="itHAFolder itHFolder itLogo" ajax="true" />
+							</b:panelGrid>
+						</b:column>
+					</b:row>
+				</p>
+				<p>
+					<b:row>
+						<b:column medium-screen="3">
+							<h:outputText value="Seleccionar WAR:" class="otDescripValor" />
+						</b:column>
+						<b:column medium-screen="6">
+							<b:formGroup>
+								<b:selectOneMenu value="#{empresaBean.war}">
+									<f:selectItems value="#{empresaBean.warsDisponibles}" />
+								</b:selectOneMenu>
+							</b:formGroup>
+						</b:column>
+					</b:row>
+				</p>
+				<p>
+					<b:row>
+						<b:column medium-screen="3">
+							<h:outputText value="Version del server:" class="otDescripValor" />
+						</b:column>
+						<b:column medium-screen="6">
+							<b:formGroup>
+								<b:selectOneMenu value="#{empresaBean.version}">
+									<f:selectItems value="#{empresaBean.versionesDisponibles}" />
+								</b:selectOneMenu>
+							</b:formGroup>
+						</b:column>
+					</b:row>
+				</p>
+			</b:jumbotron>
+			<b:jumbotron>
+				<p class="h3">Datos de la Empresa</p>
+				<p class="h4">Datos para la tabla parametros de la empresa</p>
+				<p>
+					<b:row>
+						<b:column medium-screen="3">
+							<h:outputText value="Nombre para Ruta:" class="otDescripValor" />
+						</b:column>
+						<b:column medium-screen="6">
+							<b:inputText placeholder="Ruta de la empresa"
+								value="#{empresaBean.nombre}" id="idItNombre"
+								onkeyup="ajax:empresaBean.actualizarRutas()"
+								update="itHAFolder itHFolder itLogo" ajax="true" />
+						</b:column>
+					</b:row>
+				</p>
+				<p>
+					<b:row>
+						<b:column medium-screen="3">
+							<h:outputText value="Razón Social:" class="otDescripValor" />
+						</b:column>
+						<b:column medium-screen="6">
+							<b:inputText id="empRazonSocial" value="#{empresaBean.razonSocial}"
+								placeholder="Razón Social de la Empresa" ajax="true" />
+						</b:column>
+					</b:row>
+				</p>
+				<p>
+					<b:row>
+						<b:column medium-screen="3">
+							<h:outputText value="RUT:" class="otDescripValor" />
+						</b:column>
+						<b:column medium-screen="6">
+							<b:inputText id="itRut" placeholder="RUT"
+								value="#{empresaBean.rut}"
+								onchange="ajax:empresaBean.verficarRut()"
+								update="growlRut itRut" />
+							<b:growl id="growlRut" for="itRut" globalOnly="false"
+								showDetail="false" allowDismiss="true" placementFrom="top"
+								auto-update="true" delay="5000" />
+						</b:column>
+					</b:row>
+				</p>
+				<p>
+					<b:row>
+						<b:column medium-screen="3">
+							<h:outputText value="Password RNC:" class="otDescripValor" />
+						</b:column>
+						<b:column medium-screen="6">
+							<b:inputSecret id="isPwd" placeholder="Password RNC"
+								value="#{empresaBean.passwordRNC}" />
+						</b:column>
+					</b:row>
+				</p>
+				<p>
+					<b:row>
+						<b:column medium-screen="3">
+							<h:outputText value="Confirmar Password RNC:"
+								class="otDescripValor" />
+						</b:column>
+						<b:column medium-screen="6">
+							<b:inputSecret id="isPwd2" placeholder="Password RNC"
+								value="#{empresaBean.passwordRNC2}"
+								onchange="ajax:empresaBean.validarPasswordIguales()"
+								update="isPwd isPwd2 growlPwd" />
+							<b:growl id="growlPwd" for="isPwd2" globalOnly="false"
+								showDetail="false" allowDismiss="true" placementFrom="top"
+								auto-update="true" delay="5000" />
+						</b:column>
+					</b:row>
+				</p>
+				<p>
+					<b:row>
+						<b:column medium-screen="3">
+							<h:outputText value="Logo" class="otDescripValor" />
+						</b:column>
+						<b:column medium-screen="6">
+							<b:inputText id="itLogo"
+								placeholder="Logo (incluyendo carpeta desde server)"
+								value="#{empresaBean.logo}" />
+						</b:column>
+					</b:row>
+				</p>
+				<b:container layout="fluid">
+					<b:panel title="Datos Opcionales" look="primary" collapsed="true">
+											<b:row>
+							<b:column medium-screen="3">
+								<h:outputText value="Listado Emisores:" class="otDescripValor" />
+							</b:column>
+							<b:column medium-screen="6">
+							 <b:selectOneMenu value="#{empresaBean.emisorSeleccionado}">
+						        <f:selectItem itemValue="-1" itemLabel="-- Emisor --" />
+						        <f:selectItems  value="#{empresaBean.emisores.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}"  />
+    						</b:selectOneMenu>
+							</b:column>
+						</b:row>
+						<b:row>
+							<b:column medium-screen="3">
+								<h:outputText value="Nombre Comercial:" class="otDescripValor" />
+							</b:column>
+							<b:column medium-screen="6">
+								<b:inputText placeholder="Nombre Comercial Empresa"
+									value="#{empresaBean.nombreComercial}" id="idItNombreComercial" />
+							</b:column>
+						</b:row>
+						<b:row>
+							<b:column medium-screen="3">
+								<h:outputText value="Telefono emisor:" class="otDescripValor" />
+							</b:column>
+							<b:column medium-screen="6">
+								<b:inputText placeholder="Telefono nº1 (opcional)"
+									value="#{empresaBean.telefono1}" />
+							</b:column>
+						</b:row>
+						<b:row>
+							<b:column medium-screen="3">
+								<h:outputText value="Telefono emisor (2):"
+									class="otDescripValor" />
+							</b:column>
+							<b:column medium-screen="6">
+								<b:inputText placeholder="Telefono nº2 (opcional)"
+									value="#{empresaBean.telefono2}" />
+							</b:column>
+						</b:row>
+						<b:row>
+							<b:column medium-screen="3">
+								<h:outputText value="Ciudad:" class="otDescripValor" />
+							</b:column>
+							<b:column medium-screen="6">
+								<b:inputText placeholder="Ciudad" value="#{empresaBean.ciudad}" />
+							</b:column>
+						</b:row>
+						<b:row>
+							<b:column medium-screen="3">
+								<h:outputText value="Departamento:" class="otDescripValor" />
+							</b:column>
+							<b:column medium-screen="6">
+								<b:inputText id="itDepartamento" placeholder="Departamento"
+									value="#{empresaBean.departamento}" />
+							</b:column>
+						</b:row>
+
+					</b:panel>
+				</b:container>
+			</b:jumbotron>
+			<b:jumbotron>
+				<p class="h3">Estructura de Carpetas</p>
+				<p class="h4">Estructura de directorios a ser creados para la
+					empresa</p>
+				<p>
+					<b:row>
+						<b:column medium-screen="3">
+							<h:outputText value="Home Folder:" class="otDescripValor" />
+						</b:column>
+						<b:column medium-screen="6">
+							<b:inputText id="itHFolder" placeholder="Directorio Home"
+								disabled="#{empresaBean.getNombre().length() != 0}"
+								ajax="true" value="#{empresaBean.homeFolder}" />
+						</b:column>
+					</b:row>
+				</p>
+				<p>
+					<b:row>
+						<b:column medium-screen="3">
+							<h:outputText value="Home App Folder:" class="otDescripValor" />
+						</b:column>
+						<b:column medium-screen="6">
+							<b:inputText id="itHAFolder" placeholder="Directorio Home" 
+								disabled="#{empresaBean.getNombre().length() != 0}"
+								value="#{empresaBean.homeAppFolder}" />
+						</b:column>
+					</b:row>
+				</p>
+				<p>
+					<b:row>
+						<b:column span="12">
+							<b:growl id="growl" globalOnly="true" showDetail="true"
+								severity="info,warn,error" />
+				          <b:message for="bAceptar" escape="false"
+								error-class="cssErrorMsg" show-icon="false" />
+						</b:column>
+					</b:row>
+				</p>
+				<p>
+					<b:row>
+						<b:column span="2" offset="2">
+						</b:column>
+						<b:column span="4">
+							<b:commandButton value="Validar/Crear Empresa" id="bAceptar" ajax="true"
+								onclick="ajax:empresaBean.login()" update="@form " look="primary"
+								oncomplete="if( #{empresaBean.parametrosOK } &amp;&amp; confirm('Desea dar de alta la empresa?')){ confirmarCreado(); mostrarTareas(); }"
+								style="width:100%" />
+						</b:column>
+					</b:row>
+				</p>
+				<b:commandButton id="hdnBtnRedirect" value="
+"
+					onclick="ajax:empresaBean.isConfirmadoOk()" ajax="true"
+					update="@form hdnBtnRedirect listaNotificaciones listaErrores " style="display: none;"
+					oncomplete="ocultaModal()" />
+				<b:remoteCommand name="ocultaModal"
+					oncomplete="ocultarFinalizado( #{empresaBean.empresaCreadaOk} )" />
+			</b:jumbotron>
+			<p>
+				<b:modal id="confirmarModal" title="Confimar dar de alta la empresa"
+					styleClass="modalPseudoClassConfirmar" closable="false"
+					close-on-escape="true" backdrop="true">
+					<p>¿Desea dar de alta la empresa con los parametros indicados?</p>
+					<p>
+						<b:button id="modalConfirmarOk" value="Confirmar" look="success"
+							dismiss="modal" styleClass="modalConfirmarOk" />
+					</p>
+					<!-- f:facet name="footer">
+				    <b:button value="Cancelar" dismiss="modal" />
+				    <b:button id="modalConfirmarOk" value="Confirmar" look="success" dismiss="modal" styleClass="modalConfirmarOk" /> 
+				  </f:facet -->
+				</b:modal>
+			</p>
+			<p>
+				<b:modal id="amodal" title="Creando la nueva empresa"
+					styleClass="modalPseudoClass" closable="false"
+					close-on-escape="false" backdrop="false" >
+					<p ><h3 style="text-align: center;">Creando Empresa</h3></p>
+				</b:modal>
+			</p>
+			<p>
+				<b:modal title="Empresa Creada" styleClass="modalPseudoClassCreada" id="modalOk">
+					<p><h5>Empresa creada correctamente. Log de acciones ejecutadas:</h5></p>
+					<b:dataTable value="#{empresaBean.errores}" id="listaNotificaciones"
+					               var="error"
+					               caption="Empresa creada correctamente. Log de acciones ejecutadas:"
+					               >
+					    <b:dataTableColumn value="#{error.tipo}" label="Tipo Mensaje" width="100px"/>
+					    <b:dataTableColumn value="#{error.mensaje}" label="Mensaje"/>
+					</b:dataTable>
+					<f:facet name="footer">
+						<b:button value="Aceptar" look="success" dismiss="modal" />
+					</f:facet>
+				</b:modal>
+			</p>
+			<p>
+				<b:modal title="Error al crear empresa"
+					styleClass="modalPseudoClassCreadaError" id="modalError">
+					<p><h5>Ocurrieron errores al crear la Empresa. A continuación están los mensajes generados</h5></p>
+					<b:dataTable value="#{empresaBean.errores}" id="listaErrores"
+					               var="error"
+					               caption="Ocurrieron errores al crear la Empresa. A continuación están los mensajes generados"
+					               >
+					    <b:dataTableColumn value="#{error.tipo}" label="Tipo Mensaje" width="100px"/>
+					    <b:dataTableColumn value="#{error.mensaje}" label="Mensaje"/>
+					</b:dataTable>
+					<f:facet name="footer">
+						<b:button value="Aceptar" look="warning" dismiss="modal" />
+					</f:facet>
+				</b:modal>
+			</p>
+		</b:container>
+	</h:form>
+</h:body>
+</html>
+

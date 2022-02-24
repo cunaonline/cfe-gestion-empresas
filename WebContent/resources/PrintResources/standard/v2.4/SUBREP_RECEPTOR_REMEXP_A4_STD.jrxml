@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubReportReferences" pageWidth="351" pageHeight="63" columnWidth="351" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.9965000000000035"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="CUSTOMER_DOCUMENT_TYPE" class="java.lang.String"/>
+	<parameter name="CUSTOMER_DOCUMENT_NUMBER" class="java.lang.String"/>
+	<parameter name="CUSTOMER_NAME" class="java.lang.String"/>
+	<parameter name="CUSTOMER_ADDRESS" class="java.lang.String"/>
+	<parameter name="CUSTOMER_CITY" class="java.lang.String"/>
+	<parameter name="CUSTOMER_DEPARTMENT" class="java.lang.String"/>
+	<parameter name="CUSTOMER_FULL_COUNTRY" class="java.lang.String"/>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<printWhenExpression><![CDATA[($P{CUSTOMER_DOCUMENT_TYPE}!=null && !$P{CUSTOMER_DOCUMENT_TYPE}.equals(""))&&
+ ($P{CUSTOMER_DOCUMENT_NUMBER}!=null && !$P{CUSTOMER_DOCUMENT_NUMBER}.equals(""))]]></printWhenExpression>
+			<textField>
+				<reportElement x="0" y="0" width="351" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CUSTOMER_DOCUMENT_TYPE}+" "+$P{CUSTOMER_DOCUMENT_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="15">
+			<printWhenExpression><![CDATA[$P{CUSTOMER_NAME}!=null && !$P{CUSTOMER_NAME}.equals("")]]></printWhenExpression>
+			<textField>
+				<reportElement x="0" y="0" width="351" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CUSTOMER_NAME}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="15">
+			<printWhenExpression><![CDATA[$P{CUSTOMER_ADDRESS}!=null && !$P{CUSTOMER_ADDRESS}.equals("")]]></printWhenExpression>
+			<textField>
+				<reportElement x="0" y="0" width="351" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CUSTOMER_ADDRESS}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="27">
+			<printWhenExpression><![CDATA[($P{CUSTOMER_CITY}!=null && !$P{CUSTOMER_CITY}.equals("")) ||
+($P{CUSTOMER_DEPARTMENT}!=null && !$P{CUSTOMER_DEPARTMENT}.equals(""))
+||($P{CUSTOMER_FULL_COUNTRY}!=null && !$P{CUSTOMER_FULL_COUNTRY}.equals(""))]]></printWhenExpression>
+			<textField>
+				<reportElement x="0" y="0" width="351" height="27"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CUSTOMER_CITY}+
+($P{CUSTOMER_DEPARTMENT}.equals("")? "":", "+$P{CUSTOMER_DEPARTMENT})
++($P{CUSTOMER_FULL_COUNTRY}.equals("")? "":", "+$P{CUSTOMER_FULL_COUNTRY})]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubReportDailyDetalles" pageWidth="555" pageHeight="840" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.2396694214876034"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="cfeType" class="java.lang.String"/>
+	<field name="amountDocumentsUsed" class="java.lang.String"/>
+	<field name="amountDocumentsOverTheTop" class="java.lang.String"/>
+	<field name="amountDocumentsFailed" class="java.lang.String"/>
+	<field name="amountDocumentsIssued" class="java.lang.String"/>
+	<field name="subAndDateDetails" class="java.util.List"/>
+	<field name="documentsUsed" class="java.util.List"/>
+	<field name="documentsFailed" class="java.util.List"/>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="1" width="554" height="15" backcolor="#CCCCCC"/>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="4" y="3" width="286" height="11"/>
+				<textElement>
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de documento]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="1" width="554" height="4" backcolor="#CCCCCC"/>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="5" y="7" width="549" height="15"/>
+				<textElement>
+					<font fontName="arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cfeType}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="42" splitType="Stretch">
+			<subreport isUsingCache="true">
+				<reportElement stretchType="RelativeToBandHeight" x="-1" y="0" width="555" height="42" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="CFE_TYPE">
+					<subreportParameterExpression><![CDATA[$F{cfeType}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{subAndDateDetails})]]></dataSourceExpression>
+				<subreportExpression><![CDATA["SUBREP_SUCFECDETALLES_A4_STD.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="39" splitType="Prevent">
+			<rectangle>
+				<reportElement x="0" y="5" width="554" height="15" isPrintWhenDetailOverflows="true" backcolor="#CCCCCC"/>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="3" y="7" width="137" height="11" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[!$F{cfeType}.trim().substring(0,1).equals("2")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad docs. utilizados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="417" y="7" width="131" height="11" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad docs. emitidos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="7" width="139" height="11" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad docs. anulados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="262" y="7" width="159" height="11" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad docs. mayores al tope]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="41" y="21" width="77" height="15">
+					<printWhenExpression><![CDATA[!$F{cfeType}.trim().substring(0,1).equals("2")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{amountDocumentsUsed}!=null && !$F{amountDocumentsUsed}.equals("")?
+$F{amountDocumentsUsed}:"0"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="168" y="21" width="77" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{amountDocumentsFailed}!=null && !$F{amountDocumentsFailed}.equals("")?
+$F{amountDocumentsFailed}:"0"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="323" y="21" width="77" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{amountDocumentsOverTheTop}!=null && !$F{amountDocumentsOverTheTop}.equals("")?
+$F{amountDocumentsOverTheTop}:"0"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="21" width="77" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{amountDocumentsIssued}!=null && !$F{amountDocumentsIssued}.equals("")?
+$F{amountDocumentsIssued}:"0"]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="42" splitType="Stretch">
+			<subreport>
+				<reportElement stretchType="RelativeToBandHeight" x="-1" y="0" width="555" height="42" isRemoveLineWhenBlank="true"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{documentsUsed})]]></dataSourceExpression>
+				<subreportExpression><![CDATA["/SUBREP_DOCUTILDETALLES_A4_STD.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="42" splitType="Stretch">
+			<subreport>
+				<reportElement stretchType="RelativeToBandHeight" x="-1" y="0" width="555" height="42" isRemoveLineWhenBlank="true"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{documentsFailed})]]></dataSourceExpression>
+				<subreportExpression><![CDATA["/SUBREP_DOCANUDETALLES_A4_STD.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="5"/>
+	</pageFooter>
+</jasperReport>

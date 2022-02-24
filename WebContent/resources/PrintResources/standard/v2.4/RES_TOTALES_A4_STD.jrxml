@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubReportResguardoTotales" pageWidth="557" pageHeight="840" columnWidth="557" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="254085a8-5c9c-4b5f-afc9-fd15c9bc6f9d">
+	<property name="ireport.zoom" value="1.6500000000000024"/>
+	<property name="ireport.x" value="161"/>
+	<property name="ireport.y" value="0"/>
+	<field name="codRet" class="java.lang.String"/>
+	<field name="valRetPerc" class="java.lang.String"/>
+	<field name="codRetDesc" class="java.lang.String"/>
+	<columnHeader>
+		<band height="17" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="532dd502-7ca3-4509-8f21-36b34a1990fd" x="159" y="3" width="295" height="13" backcolor="#CCCCCC"/>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="119d25d3-a03c-4f32-b727-00a7566db030" x="457" y="3" width="99" height="13" backcolor="#CCCCCC"/>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="ad6aee55-7f1e-442b-8362-7d5b72a607f8" x="160" y="4" width="294" height="11"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Retención]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="26a7e9ac-4e62-4d70-b570-c0309022762b" x="457" y="4" width="99" height="11"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor de retención]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement uuid="32ef73cc-764c-4066-bd78-b76d61c60fdd" x="457" y="1" width="99" height="15"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{valRetPerc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1d30bc73-c1b3-41f1-b857-e2622b3f3279" x="206" y="1" width="248" height="15">
+					<printWhenExpression><![CDATA[$F{codRetDesc}!=null&&!$F{codRet}.trim().equals($F{codRetDesc}.trim())&&!$F{codRetDesc}.equals("")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{codRetDesc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2fc23074-16b1-48fd-85bc-d5fc0e9aa6a9" x="159" y="1" width="46" height="15"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{codRet}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

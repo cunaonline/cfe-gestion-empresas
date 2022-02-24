@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubReportSucFecDetalles" pageWidth="555" pageHeight="102" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.2396694214876032"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="CFE_TYPE" class="java.lang.String"/>
+	<field name="documentDate" class="java.lang.String"/>
+	<field name="subsidiaryCode" class="java.lang.String"/>
+	<field name="totMntNoGrv" class="java.lang.String"/>
+	<field name="totMntExpyAsim" class="java.lang.String"/>
+	<field name="totMntImpPerc" class="java.lang.String"/>
+	<field name="totMntIVAenSusp" class="java.lang.String"/>
+	<field name="totMntIVATasaMin" class="java.lang.String"/>
+	<field name="totMntIVATasaBas" class="java.lang.String"/>
+	<field name="totMntIVAOtra" class="java.lang.String"/>
+	<field name="mntIVATasaMin" class="java.lang.String"/>
+	<field name="mntIVATasaBas" class="java.lang.String"/>
+	<field name="mntIVAOtra" class="java.lang.String"/>
+	<field name="ivaTasaMin" class="java.lang.String"/>
+	<field name="ivaTasaBas" class="java.lang.String"/>
+	<field name="totMntTotal" class="java.lang.String"/>
+	<field name="totMntRetenido" class="java.lang.String"/>
+	<columnHeader>
+		<band height="19" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="1" width="554" height="15" backcolor="#CCCCCC"/>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="3" width="58" height="11"/>
+				<textElement>
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sucursal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="123" y="3" width="41" height="13">
+					<printWhenExpression><![CDATA[!$P{CFE_TYPE}.contains("181") && !$P{CFE_TYPE}.contains("281")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IVA mín.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="217" y="3" width="83" height="13">
+					<printWhenExpression><![CDATA[!$P{CFE_TYPE}.contains("181") && !$P{CFE_TYPE}.contains("281")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto IVA  mín.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="347" y="3" width="74" height="13">
+					<printWhenExpression><![CDATA[!$P{CFE_TYPE}.contains("181") && !$P{CFE_TYPE}.contains("281")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto IVA bás.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="477" y="3" width="76" height="13">
+					<printWhenExpression><![CDATA[!$P{CFE_TYPE}.contains("181") && !$P{CFE_TYPE}.contains("281")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto IVA otra]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="46" y="3" width="42" height="11"/>
+				<textElement textAlignment="Center">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="160" y="3" width="47" height="13">
+					<printWhenExpression><![CDATA[!$P{CFE_TYPE}.contains("181") && !$P{CFE_TYPE}.contains("281")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IVA bás.]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="117" height="15" backcolor="#CCCCCC"/>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement mode="Transparent" x="56" y="0" width="60" height="15"/>
+				<textElement>
+					<font fontName="arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{documentDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="8" y="0" width="35" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subsidiaryCode} + " - "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="113" y="0" width="44" height="15">
+					<printWhenExpression><![CDATA[!$P{CFE_TYPE}.contains("181") && !$P{CFE_TYPE}.contains("281")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ivaTasaMin}!=null && !$F{ivaTasaMin}.equals("")?
+$F{ivaTasaMin}:"0,00"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="154" y="0" width="44" height="15">
+					<printWhenExpression><![CDATA[!$P{CFE_TYPE}.contains("181") && !$P{CFE_TYPE}.contains("281")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ivaTasaBas}!=null && !$F{ivaTasaBas}.equals("")?
+$F{ivaTasaBas}:"0,00"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="198" y="0" width="102" height="15">
+					<printWhenExpression><![CDATA[!$P{CFE_TYPE}.contains("181") && !$P{CFE_TYPE}.contains("281")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mntIVATasaMin}!=null && !$F{mntIVATasaMin}.equals("")?
+$F{mntIVATasaMin}:"0,00"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="319" y="0" width="103" height="15">
+					<printWhenExpression><![CDATA[!$P{CFE_TYPE}.contains("181") && !$P{CFE_TYPE}.contains("281")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mntIVATasaBas}!=null && !$F{mntIVATasaBas}.equals("")?
+$F{mntIVATasaBas}:"0,00"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="445" y="0" width="108" height="15">
+					<printWhenExpression><![CDATA[!$P{CFE_TYPE}.contains("181") && !$P{CFE_TYPE}.contains("281")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mntIVAOtra}!=null && !$F{mntIVAOtra}.equals("")?
+$F{mntIVAOtra}:"0,00"]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="25">
+			<printWhenExpression><![CDATA[!$P{CFE_TYPE}.contains("181") && !$P{CFE_TYPE}.contains("281")]]></printWhenExpression>
+			<subreport isUsingCache="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="555" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[!$P{CFE_TYPE}.contains("181") && !$P{CFE_TYPE}.contains("281")]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="mntIVAOtra">
+					<subreportParameterExpression><![CDATA[$F{mntIVAOtra}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totMntIVAenSusp">
+					<subreportParameterExpression><![CDATA[$F{totMntIVAenSusp}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="mntIVATasaMin">
+					<subreportParameterExpression><![CDATA[$F{mntIVATasaMin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totMntTotal">
+					<subreportParameterExpression><![CDATA[$F{totMntTotal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totMntNoGrv">
+					<subreportParameterExpression><![CDATA[$F{totMntNoGrv}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totMntIVATasaBas">
+					<subreportParameterExpression><![CDATA[$F{totMntIVATasaBas}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totMntExpyAsim">
+					<subreportParameterExpression><![CDATA[$F{totMntExpyAsim}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totMntIVATasaMin">
+					<subreportParameterExpression><![CDATA[$F{totMntIVATasaMin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ivaTasaMin">
+					<subreportParameterExpression><![CDATA[$F{ivaTasaMin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="mntIVATasaBas">
+					<subreportParameterExpression><![CDATA[$F{mntIVATasaBas}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="totMntRetenido">
+					<subreportParameterExpression><![CDATA[$F{totMntRetenido}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ivaTasaBas">
+					<subreportParameterExpression><![CDATA[$F{ivaTasaBas}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(     new ArrayList<String>(java.util.Arrays.asList(new String(""))))]]></dataSourceExpression>
+				<subreportExpression><![CDATA["SUBREP_SUCFECDETALLES_A4_AUX.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

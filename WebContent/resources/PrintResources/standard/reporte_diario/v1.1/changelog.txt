@@ -1,0 +1,10 @@
+﻿
+Iniciales 	|Formato	|Linea 3.X.X	|Linea 2.X.X	|CR/Incidente	|fecha		|Resumen
+-------------------------------------------------------------------------------
+
+v1.1 ------------------------------------------
+FZ			Reporte Diario     			 	   				 897		17/07/2014	 Se agrandó el campo correspondiente a algunos tipos de CFE cuyo nombre era demasiado largo y quedaba cortado.
+
+
+v1.0 -----------------------------------------
+AC			Reporte Diario					2.1.2						 09/2013	 Versión inicial

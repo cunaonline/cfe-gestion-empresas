@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubReportDescuentosyRecargos" pageWidth="198" pageHeight="840" columnWidth="198" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="b2514650-33b4-4776-829b-5d3458bb3033">
+	<property name="ireport.zoom" value="2.143588810000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="line" class="java.lang.String"/>
+	<field name="typeOfMovement" class="java.lang.String"/>
+	<field name="glosa" class="java.lang.String"/>
+	<field name="type" class="java.lang.String"/>
+	<field name="billingIndicator" class="java.lang.String"/>
+	<field name="id" class="java.lang.String"/>
+	<field name="value" class="java.lang.String"/>
+	<columnHeader>
+		<band height="14" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="d944bbda-be3e-4b3f-915b-2b2669cf4159" x="0" y="0" width="198" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESCUENTOS / RECARGOS]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="48d40c62-7b6e-47e5-bca0-d0da0c50ab2e" x="0" y="0" width="147" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{glosa}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="120d68ee-8f54-48d2-b92a-027a437f2643" x="146" y="0" width="52" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Right">
+					<font fontName="arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{value}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

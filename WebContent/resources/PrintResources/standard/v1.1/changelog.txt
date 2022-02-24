@@ -1,0 +1,6 @@
+
+Iniciales 	|Formato	|Linea 2.X.X	|Linea 1.X.X	|CR/Incidente	|fecha		|Resumen
+-------------------------------------------------------------------------------
+AC			A4, ANGOSTO	2.1.1h							505				05/09/2013	Se agrego descuento de linea y globales	
+AC			A4, ANGOSTO	2.1.1h							507				04/09/2013	Se corrigio para los ítems con indicadores de facturación 10, 11 y 12 aparece “null” en la columna de iva		
+AC			A4, ANGOSTO	2.1.1h							507				04/09/2013	En la sección de totales faltaría se agrego Total monto exportación y asimiladas, Total monto impuesto percibido y total monto iva en suspenso.

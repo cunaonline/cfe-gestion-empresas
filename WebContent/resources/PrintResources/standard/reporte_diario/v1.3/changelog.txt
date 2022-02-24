@@ -1,0 +1,16 @@
+﻿
+Iniciales 	|Formato	|Linea 3.X.X	|Linea 2.X.X	|CR/Incidente	|fecha		|Resumen
+-------------------------------------------------------------------------------
+
+v1.3 ------------------------------------------
+FZ			Reporte Diario									 1401       30/12/2015	 Se cambió el tipo de letra por arial (por problema en linux)	 			
+
+v1.2 ------------------------------------------
+FZ			Reporte Diario									 1028       20/01/215	 Se quitó el pie de página. Se hace un salto de página cuando no le da espacio para indicar las cantidades utilizadas para algún tipo. Cuando el tipo es remito no se imprimen los totales. Cuando el monto es null o vacio se pone 0,00.				
+
+v1.1 ------------------------------------------
+FZ			Reporte Diario     			 	   				 897		17/07/2014	 Se agrandó el campo correspondiente a algunos tipos de CFE cuyo nombre era demasiado largo y quedaba cortado.
+
+
+v1.0 -----------------------------------------
+AC			Reporte Diario					2.1.2						 09/2013	 Versión inicial

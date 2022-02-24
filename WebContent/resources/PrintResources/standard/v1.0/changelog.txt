@@ -1,0 +1,3 @@
+
+Iniciales 	|Linea 2.X.X	|Linea 1.X.X	|CR/Incidente	|fecha		|Resumen
+-------------------------------------------------------------------------------
